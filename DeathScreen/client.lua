@@ -143,41 +143,34 @@ Citizen.CreateThread(function()
 
 			StartScreenEffect("DeathFailMPDark", 0, 0)
 			ShakeGameplayCam("DEATH_FAIL_IN_EFFECT_SHAKE", 1.0)
+			SetCamEffect(2)
 
 			while not HasScaleformMovieLoaded(scaleformMovie) do
 				Citizen.Wait(0)
 			end
-			if killerId and killerId ~= playerId and killerName ~= "**Invalid**" then
-				CreateCinematicShot(-1096069633, 2000, 0, killerPed)
-			end
+
 			PushScaleformMovieFunction(scaleformMovie, "SHOW_SHARD_WASTED_MP_MESSAGE")
-			BeginTextCommandScaleformString("STRING")
-			AddTextComponentSubstringTextLabel("RESPAWN_W")
+			BeginTextCommandScaleformString("RESPAWN_W")
 			EndTextCommandScaleformString()
 
 			if killerName ~= "**Invalid**" then
 				PushScaleformMovieFunction(scaleformMovie, "SHOW_SHARD_WASTED_MP_MESSAGE")
-				BeginTextCommandScaleformString("STRING")
 				if killerId == playerId then
-					AddTextComponentSubstringTextLabel("DM_U_SUIC")
+					BeginTextCommandScaleformString("DM_U_SUIC")
 				elseif killerId ~= playerId and killerName ~= "**Invalid**" then
-
-					if deathTypes[causeHash] == nil or deathTypes[causeHash] == "NULL" then
-						if deathTypes[weaponHash] == nil or deathTypes[weaponHash] == "NULL" then
-							deathReason = GetLabelText("DM_TICK1"):gsub("~a~~HUD_COLOUR_WHITE~", "<C>" .. killerName .. "</C>")
+					if IsStringNullOrEmpty(deathTypes[weaponHash]) then
+						if IsStringNullOrEmpty(deathTypes[causeHash]) then
+							BeginTextCommandScaleformString("DM_TICK1")
 						else
-							deathReason = GetLabelText(deathTypes[weaponHash]):gsub("~a~~HUD_COLOUR_WHITE~", "<C>" .. killerName .. "</C>")
+							BeginTextCommandScaleformString(deathTypes[causeHash])
 						end
 					else
-						deathReason = GetLabelText(deathTypes[causeHash]):gsub("~a~~HUD_COLOUR_WHITE~", "<C>" .. killerName .. "</C>")
+						BeginTextCommandScaleformString(deathTypes[weaponHash])
 					end
-						
-					AddTextComponentSubstringPlayerName(deathReason)
-
+					AddTextComponentSubstringPlayerName("<C>" .. killerName .. "</C>")
 				end
 				EndTextCommandScaleformString()
 			end
-
 			PopScaleformMovieFunctionVoid()
 			
 			Citizen.Wait(750)
@@ -191,9 +184,6 @@ Citizen.CreateThread(function()
 				Citizen.Wait(0)
 			end
 
-			if IsCinematicShotActive(-1096069633) then
-				StopCinematicShot(-1096069633)
-			end
 			StopScreenEffect("DeathFailMPDark")
 			StopGameplayCamShaking()
 			PlaySoundFrontend(-1, "MP_Impact", "WastedSounds", true)
@@ -208,25 +198,34 @@ RegisterNetEvent("huyax:deathscreen:showNotification")
 AddEventHandler("huyax:deathscreen:showNotification", function(id, target, killer)
 	local text = nil
 	if killer == GetPlayerName(PlayerId()) and id == 1 then
-		text = GetLabelText("DM_TICK2"):gsub("~a~~HUD_COLOUR_WHITE~", "<C>" .. killer .. "</C>"):gsub("~a~", "<C>" .. target .. "</C>")
+		text = "DM_TICK2"
 	elseif target == GetPlayerName(PlayerId()) then
 		if id == 0 then
-			text = GetLabelText("DM_U_SUIC")
+			text = "DM_U_SUIC"
 		elseif id == 1 then
-			text = GetLabelText("DM_TICK1"):gsub("~a~~HUD_COLOUR_WHITE~", "<C>" .. killer .. "</C>")
+			text = "DM_TICK1"
 		else
-			text = GetLabelText("DM_TK_YD1")
+			text = "DM_TK_YD1"
 		end
 	elseif target ~= GetPlayerName(PlayerId()) then
 		if id == 0 then
-			text = GetLabelText("DM_O_SUIC"):gsub("~a~~HUD_COLOUR_WHITE~", "<C>" .. target .. "</C>")
+			text = "DM_O_SUIC"
 		elseif id == 1 then
-			text = GetLabelText("TICK_KILL"):gsub("~a~~HUD_COLOUR_WHITE~", "<C>" .. killer .. "</C>"):gsub("~a~", "<C>" .. target .. "</C>")
+			text = "TICK_KILL"
 		else
-			text = GetLabelText("TICK_DIED"):gsub("~a~~HUD_COLOUR_WHITE~", "<C>" .. target .. "</C>")
+			text = "TICK_DIED"
 		end
 	end
-	SetNotificationTextEntry("STRING")
-	AddTextComponentSubstringPlayerName(text)
+	SetNotificationTextEntry(text)
+	if target == GetPlayerName(PlayerId()) and id == 1 then
+		AddTextComponentSubstringPlayerName("<C>" .. killer .. "</C>")
+	elseif killer == GetPlayerName(PlayerId()) and id == 1 then
+		AddTextComponentSubstringPlayerName("<C>" .. target .. "</C>")
+	elseif id == 1 then
+		AddTextComponentSubstringPlayerName("<C>" .. killer .. "</C>")
+		AddTextComponentSubstringPlayerName("<C>" .. target .. "</C>")
+	else
+		AddTextComponentSubstringPlayerName("<C>" .. target .. "</C>")
+	end
 	DrawNotification(true, false)
 end)
