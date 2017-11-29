@@ -1,5 +1,5 @@
 local deathTypes = {
-	--table layout: [hash] = {"pl1 killed pl2", "pl1 killed you", "you killed pl2"}
+	--table layout: [hash] = {"pl1 killed you", "you killed pl2", "pl1 killed pl2"}
 	[GetHashKey("VEHICLE_WEAPON_NOSE_TURRET_VALKYRIE")] = "DM_TK_PISTOL1",
 	[GetHashKey("VEHICLE_WEAPON_PLANE_ROCKET")] = "DM_TK_BOMB1",
 	[GetHashKey("VEHICLE_WEAPON_PLAYER_BULLET")] = "DM_TK_PISTOL1",
@@ -117,21 +117,15 @@ Citizen.CreateThread(function()
 
 		SetAudioFlag("LoadMPData", true)
 		RequestScriptAudioBank("mp_wasted", 1)
-		local scaleformMovie = RequestScaleformMovie("MP_BIG_MESSAGE_FREEMODE")
+		local scaleform = RequestScaleformMovie("MP_BIG_MESSAGE_FREEMODE")
 
 		if IsEntityDead(playerPed) then
 
 			killerEntity, weaponHash = NetworkGetEntityKillerOfPlayer(playerId)
-			causeHash = GetPedCauseOfDeath(playerPed)
-			killerPed = GetPedKiller(playerPed)
 			killerId = NetworkGetPlayerIndexFromPed(killerEntity)
-			if IsEntityAVehicle(killerEntity) then
-				if not IsVehicleSeatFree(killerEntity, -1) then
-					killerId = NetworkGetPlayerIndexFromPed(GetPedInVehicleSeat(killerEntity, -1))
-					killerEntity = GetPlayerPed(killerId)
-				end
-			end
+			killerPed = GetPedKiller(playerPed)
 			killerName = GetPlayerName(killerId)
+			causeHash = GetPedCauseOfDeath(playerPed)
 
 			if killerId == playerId then
 				TriggerServerEvent('huyax:deathscreen:playerDied', 0, 0)
@@ -145,16 +139,16 @@ Citizen.CreateThread(function()
 			ShakeGameplayCam("DEATH_FAIL_IN_EFFECT_SHAKE", 1.0)
 			SetCamEffect(2)
 
-			while not HasScaleformMovieLoaded(scaleformMovie) do
+			while not HasScaleformMovieLoaded(scaleform) do
 				Citizen.Wait(0)
 			end
 
-			PushScaleformMovieFunction(scaleformMovie, "SHOW_SHARD_WASTED_MP_MESSAGE")
+			PushScaleformMovieFunction(scaleform, "SHOW_SHARD_WASTED_MP_MESSAGE")
 			BeginTextCommandScaleformString("RESPAWN_W")
 			EndTextCommandScaleformString()
 
 			if killerName ~= "**Invalid**" then
-				PushScaleformMovieFunction(scaleformMovie, "SHOW_SHARD_WASTED_MP_MESSAGE")
+				PushScaleformMovieFunction(scaleform, "SHOW_SHARD_WASTED_MP_MESSAGE")
 				if killerId == playerId then
 					BeginTextCommandScaleformString("DM_U_SUIC")
 				elseif killerId ~= playerId and killerName ~= "**Invalid**" then
@@ -180,7 +174,7 @@ Citizen.CreateThread(function()
 			Citizen.Wait(250)
 
 			while IsEntityDead(PlayerPedId()) do
-				DrawScaleformMovieFullscreen(scaleformMovie, 255, 255, 255, 255)
+				DrawScaleformMovieFullscreen(scaleform, 255, 255, 255, 255)
 				Citizen.Wait(0)
 			end
 
@@ -196,36 +190,33 @@ end)
 
 RegisterNetEvent("huyax:deathscreen:showNotification")
 AddEventHandler("huyax:deathscreen:showNotification", function(id, target, killer)
-	local text = nil
-	if killer == GetPlayerName(PlayerId()) and id == 1 then
-		text = "DM_TICK2"
-	elseif target == GetPlayerName(PlayerId()) then
+	local player = GetPlayerName(PlayerId())
+
+	if player == target then
 		if id == 0 then
-			text = "DM_U_SUIC"
+			SetNotificationTextEntry("DM_U_SUIC")
 		elseif id == 1 then
-			text = "DM_TICK1"
-		else
-			text = "DM_TK_YD1"
+			SetNotificationTextEntry("DM_TICK1")
+			AddTextComponentSubstringPlayerName("<C>" .. killer .. "</C>")
+		elseif id == 2 then
+			SetNotificationTextEntry("DM_TK_YD1")
 		end
-	elseif target ~= GetPlayerName(PlayerId()) then
+	elseif player == killer then
+		if id == 1 then
+			SetNotificationTextEntry("DM_TICK2")
+			AddTextComponentSubstringPlayerName("<C>" .. target .. "</C>")
+		end
+	elseif player ~=target and player ~=killer then
 		if id == 0 then
-			text = "DM_O_SUIC"
+			SetNotificationTextEntry("DM_O_SUIC")
 		elseif id == 1 then
-			text = "TICK_KILL"
-		else
-			text = "TICK_DIED"
+			SetNotificationTextEntry("TICK_KILL")
+			AddTextComponentSubstringPlayerName("<C>" .. killer .. "</C>")
+			AddTextComponentSubstringPlayerName("<C>" .. target .. "</C>")
+		elseif id == 2 then
+			SetNotificationTextEntry("TICK_DIED")
 		end
 	end
-	SetNotificationTextEntry(text)
-	if target == GetPlayerName(PlayerId()) and id == 1 then
-		AddTextComponentSubstringPlayerName("<C>" .. killer .. "</C>")
-	elseif killer == GetPlayerName(PlayerId()) and id == 1 then
-		AddTextComponentSubstringPlayerName("<C>" .. target .. "</C>")
-	elseif id == 1 then
-		AddTextComponentSubstringPlayerName("<C>" .. killer .. "</C>")
-		AddTextComponentSubstringPlayerName("<C>" .. target .. "</C>")
-	else
-		AddTextComponentSubstringPlayerName("<C>" .. target .. "</C>")
-	end
-	DrawNotification(true, false)
+
+	DrawNotification(false, false)
 end)
