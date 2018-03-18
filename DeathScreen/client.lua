@@ -1,10 +1,10 @@
+local cinematicStart = 2500 --5000 or 7500 for GTAO (ms)
 local deathTypes = {
-	--table layout: [hash] = {"pl1 killed you", "you killed pl2", "pl1 killed pl2"}
-	[0] = {"DM_TICK1", "DM_TICK2", "DM_TICK6"},
+	--table layout: ["WEAPON_TYPE"] = {"pl1 killed you", "you killed pl2", "pl1 killed pl2"}
+	["DEFAULT"] = {"DM_TICK1", "DM_TICK2", "DM_TICK6"},
 }
 
-local function IsStringValid(string)
-	-- IsStringNullOrEmpty() or IsStringNull() always returns true
+local function IsLabelValid(string)
 	local string = GetLabelText(string)
 	if string == "" or string:find("NULL") then
 		return false
@@ -14,6 +14,7 @@ end
 
 Citizen.CreateThread(function()
 	while true do
+
 		local playerId = PlayerId()
 		local playerPed = PlayerPedId()
 		local playerName = GetPlayerName(playerId)
@@ -23,7 +24,6 @@ Citizen.CreateThread(function()
 		local killerEntity = nil
 		local causeHash = nil
 		local weaponHash = nil
-		local deathReason = nil
 
 		SetAudioFlag("LoadMPData", true)
 		RequestScriptAudioBank("mp_wasted", 1)
@@ -38,16 +38,28 @@ Citizen.CreateThread(function()
 			causeHash = GetPedCauseOfDeath(playerPed)
 
 			if killerId == playerId then
-				TriggerServerEvent('huyax:deathscreen:playerDied', 0, 0)
+				TriggerServerEvent('freznva:deathscreen:playerDied', 0, 0)
 			elseif killerId ~= playerId and killerName ~= "**Invalid**" then
-				TriggerServerEvent('huyax:deathscreen:playerDied', 1, killerName)
+				TriggerServerEvent('freznva:deathscreen:playerDied', 1, killerName)
+				Citizen.CreateThread(function()
+					while not HasScaleformMovieLoaded(scaleform) do
+						Citizen.Wait(0)
+					end
+					Citizen.Wait(cinematicStart)
+					SetCamEffect(0)
+					NetworkSetOverrideSpectatorMode(true)
+					NetworkSetInSpectatorMode(true, killerPed)
+					SetCinematicModeActive(true)
+					SetFocusEntity(killerPed)
+				end)
 			else
-				TriggerServerEvent('huyax:deathscreen:playerDied', 2, 0)
+				TriggerServerEvent('freznva:deathscreen:playerDied', 2, 0)
 			end
 
-			StartScreenEffect("DeathFailMPDark", 0, 0)
+			StartScreenEffect("DeathFailMPIn", 0, 0)
 			ShakeGameplayCam("DEATH_FAIL_IN_EFFECT_SHAKE", 1.0)
 			SetCamEffect(2)
+			
 
 			while not HasScaleformMovieLoaded(scaleform) do
 				Citizen.Wait(0)
@@ -61,10 +73,10 @@ Citizen.CreateThread(function()
 				if killerId == playerId then
 					BeginTextCommandScaleformString("DM_U_SUIC")
 				elseif killerId ~= playerId and killerName ~= "**Invalid**" then
-					if IsStringValid(deathTypes[causeHash]) then
+					if IsLabelValid(deathTypes[causeHash]) then
 						BeginTextCommandScaleformString(deathTypes[causeHash])
 					else
-						if IsStringValid(deathTypes[weaponHash]) then
+						if IsLabelValid(deathTypes[weaponHash]) then
 							BeginTextCommandScaleformString(deathTypes[weaponHash])
 						else
 							BeginTextCommandScaleformString("DM_TICK1")
@@ -85,12 +97,20 @@ Citizen.CreateThread(function()
 
 			while IsEntityDead(PlayerPedId()) do
 				DrawScaleformMovieFullscreen(scaleform, 255, 255, 255, 255)
+				if NetworkIsInSpectatorMode() then
+					DisableAllControlActions(0)
+				end
 				Citizen.Wait(0)
 			end
 
-			StopScreenEffect("DeathFailMPDark")
+			SetCamEffect(0)
 			StopGameplayCamShaking()
-			PlaySoundFrontend(-1, "MP_Impact", "WastedSounds", true)
+			StopScreenEffect("DeathFailMPIn")
+			SetCinematicModeActive(false)
+			NetworkSetInSpectatorMode(false, playerPed)
+			NetworkSetOverrideSpectatorMode(false)
+			SetFocusEntity(playerPed)
+			PlaySoundFrontend(-1, "Hit", "RESPAWN_ONLINE_SOUNDSET", true)
 
 		end
 
@@ -98,8 +118,8 @@ Citizen.CreateThread(function()
 	end
 end)
 
-RegisterNetEvent("huyax:deathscreen:showNotification")
-AddEventHandler("huyax:deathscreen:showNotification", function(id, target, killer)
+RegisterNetEvent("freznva:deathscreen:showNotification")
+AddEventHandler("freznva:deathscreen:showNotification", function(id, target, killer)
 	local player = GetPlayerName(PlayerId())
 
 	if player == target then
