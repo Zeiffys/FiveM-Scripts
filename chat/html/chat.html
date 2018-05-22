@@ -1,0 +1,32 @@
+<html>
+	<head>
+		<link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,400i,700,700i&amp;subset=cyrillic-ext" rel="stylesheet">
+		<script src="nui://game/ui/jquery.js" type="text/javascript"></script>
+		<script src="jquery.faketextbox.js" type="text/javascript"></script>
+		<script src="chat.js" type="text/javascript"></script>
+		<link href="chat.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body>
+		<div id="chat">
+			<div id="chatBuffer">
+				<ul></ul>
+			</div>
+			<div id="chatInputHas">
+				&#10148;
+				<div id="chatInput" />
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			function setZoomLevel() {
+				const zoomLevel = Math.max( //Math.min
+					window.innerWidth / 2560,
+					window.innerHeight / 1440
+				);
+				document.querySelector('body').style.setProperty('zoom', zoomLevel);
+			}
+			setZoomLevel();
+			window.addEventListener('resize', setZoomLevel);
+		</script>
+	</body>
+</html>
