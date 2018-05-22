@@ -2,14 +2,14 @@ RegisterServerEvent("chat:commandEntered")
 RegisterServerEvent("chat:messageEntered")
 RegisterServerEvent("playerActivated")
 
-AddEventHandler("chat:commandEntered", function(name, command)
-    print(" *"..name.." executed the command /"..command)
+AddEventHandler("chat:commandEntered", function(author, rawCommand)
+    print(" *"..author.." executed the command /"..rawCommand)
 end)
 
-AddEventHandler("chat:messageEntered", function(name, message)
+AddEventHandler("chat:messageEntered", function(author, message)
     if not WasEventCanceled() then
-        TriggerClientEvent("chat:addMessage", -1, name, message)
-		print(" *"..string.gsub(name, "%^([0-9*_~=r])", "")..": "..string.gsub(message, "%^([0-9*_~=r])", ""))
+        TriggerClientEvent("chat:addMessage", -1, author, message)
+		print(" *"..escape(author)..": "..escape(message))
     end
 end)
 
@@ -31,6 +31,10 @@ AddEventHandler("playerDropped", function(reason)
 		TriggerClientEvent("chat:addMessage", -1, "", " ^1*"..GetPlayerName(source).." ^0"..reason)
 	end
 end)
+
+function escape(s)
+	return s:gsub("%^([0-9*_~=r])", "")
+end
 
 local function RefreshAllowedCommands(player)
 	if GetRegisteredCommands then

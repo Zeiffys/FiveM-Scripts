@@ -11,7 +11,7 @@ function colorize(str)
 	};
 
 	const styleRegex = /\^(\_|\*|\=|\~|\/|r)(.*?)(?=$|\^r|<\/span>)/;
-	while (s.match(styleRegex)) { //Any better solution would be appreciated :P
+	while (s.match(styleRegex)) {
 		s = s.replace(styleRegex, (str, style, inner) => `<span style="${styleDict[style]}">${inner}</span>`);
 	}
 
@@ -80,7 +80,7 @@ $(function()
         });
     };
 
-    $("#chatInput").fakeTextbox(); // //
+    $("#chatInput").fakeTextbox();
 
     $("#chatInput")[0].onPress(function(e)
     {
@@ -125,7 +125,7 @@ $(function()
         {
             inputShown = true;
 
-            $("#chat").stop();//.css("opacity", "1");
+            $("#chat").stop();
 			$("#chat").animate({ opacity: 1 }, 500);
 
             $("#chatInputHas").show();
@@ -137,9 +137,6 @@ $(function()
 
         var name = colorize(escape(item.name));
 		var message = colorize(escape(item.message));
-
-        //name = colorize(name);
-        //message = colorize(message);
 
         var buf = $("#chatBuffer");
 
@@ -153,7 +150,7 @@ $(function()
         buf.find("ul").append("<li>" + nameStr + message + "</li>");
         buf.scrollTop(buf[0].scrollHeight - buf.height());
 
-        $("#chat").stop();//.css("opacity", "1");
+        $("#chat").stop();
 		$("#chat").animate({ opacity: 1 }, 500);
 
         startHideChat();

@@ -1,7 +1,6 @@
 local chatInputActive = false
 local chatInputActivating = false
 local chatAllowedCommands = {}
--- ^5kek ^0^~you dickhead^r ^1^*I Love ^0Five^2M
 
 RegisterNetEvent("chat:addMessage")
 AddEventHandler("chat:addMessage", function(name, message)
@@ -12,26 +11,28 @@ RegisterNUICallback("chatResult", function(data, cb)
 	chatInputActive = false
 	SetNuiFocus(false)
 
-	local author = GetPlayerName(PlayerId())
-	local message = data.message:sub(1, 256)
-	local messageLen = escape(message):len()
+	if data.message then
+		local author = GetPlayerName(PlayerId())
+		local message = data.message:sub(1, 256)
+		local messageLen = escape(message):len()
 
-	if messageLen > 0 then
-		if message:sub(1, 1) == "/" then
-			local rawCommand = message:sub(2)
-			local command = string.split(escape(rawCommand))[1]
-			if command then
-				for _, allowedCommand in ipairs(chatAllowedCommands) do
-					if command == allowedCommand then
-						ExecuteCommand(rawCommand)
-						TriggerServerEvent("chat:commandEntered", author, rawCommand)
-						return
+		if messageLen > 0 then
+			if message:sub(1, 1) == "/" then
+				local rawCommand = message:sub(2)
+				local command = string.split(escape(rawCommand))[1]
+				if command then
+					for _, allowedCommand in ipairs(chatAllowedCommands) do
+						if command == allowedCommand then
+							ExecuteCommand(rawCommand)
+							TriggerServerEvent("chat:commandEntered", author, rawCommand)
+							return
+						end
 					end
+					TriggerEvent("chat:addMessage", "", " ^1*^0Command \""..command.."\" not found")
 				end
-				TriggerEvent("chat:addMessage", "", " ^1*^0Command \""..command.."\" not found")
+			else
+				TriggerServerEvent("chat:messageEntered", author, message)
 			end
-		else
-			TriggerServerEvent("chat:messageEntered", author, message)
 		end
 	end
 end)
