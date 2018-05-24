@@ -37,7 +37,7 @@ function escape(s)
 end
 
 local function RefreshAllowedCommands(player)
-	if GetRegisteredCommands then
+	if GetRegisteredCommands and player then
 		local registeredCommands = GetRegisteredCommands()
 		local allowedCommands = {}
 
@@ -65,6 +65,7 @@ AddEventHandler('onServerResourceStart', function(resName)
 end)
 
 AddEventHandler("playerActivated", function()
+	local player = source
     Wait(500)
-	RefreshAllowedCommands(source)
+	RefreshAllowedCommands(player)
 end)

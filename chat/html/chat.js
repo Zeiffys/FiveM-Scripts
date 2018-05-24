@@ -52,6 +52,7 @@ $(function()
             }
 
             $("#chat").animate({ opacity: 0 }, 2500);
+			$("#chatBackground").animate({ opacity: 0 }, 2500);
         }, 5000);
     }
 
@@ -100,6 +101,7 @@ $(function()
 
     $(document).keydown(function(e)
     {
+		var scrollSize = 57 // 3 messages // 1 msg = 19px with 16px text size
         if (e.keyCode == 9)
         {
             e.preventDefault();
@@ -108,12 +110,14 @@ $(function()
         else if (e.keyCode == 33)
         {
             let buf = $("#chatBuffer");
-            buf.scrollTop(buf.scrollTop() - 50);
+            //buf.scrollTop(buf.scrollTop() - scrollSize);
+			buf.animate({scrollTop:buf.scrollTop()-scrollSize}, 100);
         }
         else if (e.keyCode == 34)
         {
             let buf = $("#chatBuffer");
-            buf.scrollTop(buf.scrollTop() + 50);
+            //buf.scrollTop(buf.scrollTop() + scrollSize);
+			buf.animate({scrollTop:buf.scrollTop()+scrollSize}, 100);
         }
     });
 
@@ -125,7 +129,10 @@ $(function()
         {
             inputShown = true;
 
-            $("#chat").stop();
+            $("#chatBackground").stop();
+			$("#chatBackground").animate({ opacity: 1 }, 500);
+
+			$("#chat").stop();
 			$("#chat").animate({ opacity: 1 }, 500);
 
             $("#chatInputHas").show();
@@ -148,7 +155,12 @@ $(function()
         }
 
         buf.find("ul").append("<li>" + nameStr + message + "</li>");
-        buf.scrollTop(buf[0].scrollHeight - buf.height());
+		//buf.scrollTop(buf[0].scrollHeight - buf.height());
+		buf.animate({scrollTop:buf[0].scrollHeight - buf.height()}, 100);
+        
+
+		$("#chatBackground").stop();
+		$("#chatBackground").animate({ opacity: 1 }, 500);
 
         $("#chat").stop();
 		$("#chat").animate({ opacity: 1 }, 500);

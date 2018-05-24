@@ -6,20 +6,21 @@ body {
 ul {
 	margin: 0px;
 	padding: 0px;
-	list-style-type: none; /* hii */
+	list-style-type: none;
 }
 
 #chat {
 	position: absolute;
 	top: 16px;
 	left: 16px;
-	/*padding: 7px;*/
 	width: 720px;
-	font-size: 20px;
-	font-family: "Fira Sans", "Calibri", "Segoe UI", "Segoe UI Symbol", "Segoe UI Emoji",  Arial, sans-serif;
+	font-size: 16px;
+	font-family: "Fira Sans", "Segoe UI", "Segoe UI Symbol", "Segoe UI Emoji",  Arial, sans-serif;
 	color: #fff;
 	overflow: hidden;
 	text-shadow: 0px 0px 1px #333;
+	/*text-shadow: 1px 1px 2px #333;*/
+	opacity: 0
 }
 
 input.fake {
@@ -30,6 +31,7 @@ input.fake {
 
 #chatInputHas {
 	display: none;
+	opacity: 0;
 }
 
 #chatInputHas strong {
@@ -41,8 +43,6 @@ input.fake {
 }
 
 #chatInput {
-	/*width: 720px;*/
-
 	background-color: transparent;
 	border: none;
 	outline: none !important;
@@ -80,8 +80,19 @@ input.fake {
 }
 
 #chatBuffer {
-	height: 240px;
+	height: 190px;
 	overflow: hidden;
+}
+
+#chatBackground {
+  width: 70vw;
+  height: 60vh;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, .7) 0%, rgba(255, 255, 255, 0) 70%);
+  position: absolute;
+  top: -35vh;
+  left: -35vw;
+  opacity: 0;
+  z-index: -1;
 }
 
 .color-0{color: #ffffff;}
@@ -93,3 +104,7 @@ input.fake {
 .color-6{color: #aa66cc;}
 .color-8{color: #cc0000;}
 .color-9{color: #cc0068;}
+
+::-webkit-scrollbar {width: 3px;}
+::-webkit-scrollbar-track {border-radius: 50%; height: 3px}
+::-webkit-scrollbar-thumb {background: #fff; height: 3px}

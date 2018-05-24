@@ -1,15 +1,13 @@
-description 'chat management stuff'
+description 'Improved Old Chat'
 
-ui_page 'html/chat.html'
+ui_page 'html/index.html'
 
 client_script 'chat_client.lua'
 server_script 'chat_server.lua'
 
-export 'printChatLine'
-
 files {
-    'html/chat.html',
-    'html/chat.css',
+    'html/index.html',
+    'html/style.css',
     'html/chat.js',
-    'html/jquery.faketextbox.js'
+	'html/jquery.faketextbox.js',
 }

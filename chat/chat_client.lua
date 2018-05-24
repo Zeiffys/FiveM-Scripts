@@ -4,7 +4,7 @@ local chatAllowedCommands = {}
 
 RegisterNetEvent("chat:addMessage")
 AddEventHandler("chat:addMessage", function(name, message)
-	SendNUIMessage({name = name, message = message})
+	SendNUIMessage({name = tostring(name), message = tostring(message)})
 end)
 
 RegisterNUICallback("chatResult", function(data, cb)
@@ -73,6 +73,7 @@ function escape(s)
 end
 
 Citizen.CreateThread(function()
+	SetNuiFocus(false)
 	SetTextChatEnabled(false)
 	while true do
 		Citizen.Wait(0)
