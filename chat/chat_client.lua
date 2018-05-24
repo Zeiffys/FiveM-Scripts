@@ -14,7 +14,7 @@ RegisterNUICallback("chatResult", function(data, cb)
 	if data.message then
 		local author = GetPlayerName(PlayerId())
 		local message = data.message:sub(1, 256)
-		local messageLen = escape(message):len()
+		local messageLen = escape(message):gsub(" ", ""):len()
 
 		if messageLen > 0 then
 			if message:sub(1, 1) == "/" then
@@ -69,7 +69,7 @@ function string.split(s) --so kek
 end
 
 function escape(s)
-	return s:gsub("%^([0-9*_~=r])", ""):gsub(" ", "")
+	return s:gsub("%^([0-9*_~=r])", "")
 end
 
 Citizen.CreateThread(function()
