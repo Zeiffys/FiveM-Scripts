@@ -3,18 +3,18 @@ RegisterServerEvent("chat:messageEntered")
 RegisterServerEvent("playerActivated")
 
 AddEventHandler("chat:commandEntered", function(author, rawCommand)
-    print(" *"..author.." executed the command /"..rawCommand)
+	print(" *"..author.." executed the command /"..rawCommand)
 end)
 
 AddEventHandler("chat:messageEntered", function(author, message)
-    if not WasEventCanceled() then
-        TriggerClientEvent("chat:addMessage", -1, author, message)
+	if not WasEventCanceled() then
+		TriggerClientEvent("chat:addMessage", -1, author, message)
 		print(" *"..escape(author)..": "..escape(message))
-    end
+	end
 end)
 
 AddEventHandler("playerActivated", function()
-    TriggerClientEvent("chat:addMessage", -1, "", " ^1*"..GetPlayerName(source).." ^0joined")
+	TriggerClientEvent("chat:addMessage", -1, "", " ^1*"..GetPlayerName(source).." ^0joined")
 end)
 
 AddEventHandler("playerDropped", function(reason)
@@ -57,15 +57,15 @@ local function RefreshAllowedCommands(player)
 end
 
 AddEventHandler('onServerResourceStart', function(resName)
-    Wait(500)
+	Wait(500)
 
-    for _, player in ipairs(GetPlayers()) do
-        RefreshAllowedCommands(player)
-    end
+	for _, player in ipairs(GetPlayers()) do
+		RefreshAllowedCommands(player)
+	end
 end)
 
 AddEventHandler("playerActivated", function()
 	local player = source
-    Wait(500)
+	Wait(500)
 	RefreshAllowedCommands(player)
 end)

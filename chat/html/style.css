@@ -85,14 +85,14 @@ input.fake {
 }
 
 #chatBackground {
-  width: 70vw;
-  height: 60vh;
-  background: radial-gradient(ellipse at center, rgba(0, 0, 0, .7) 0%, rgba(255, 255, 255, 0) 70%);
-  position: absolute;
-  top: -35vh;
-  left: -35vw;
-  opacity: 0;
-  z-index: -1;
+	width: 70vw;
+	height: 60vh;
+	background: radial-gradient(ellipse at center, rgba(0, 0, 0, .7) 0%, rgba(255, 255, 255, 0) 70%);
+	position: absolute;
+	top: -35vh;
+	left: -35vw;
+	opacity: 0;
+	z-index: -1;
 }
 
 .color-0{color: #ffffff;}
