@@ -1,40 +1,62 @@
-trainspawned = false
-PlayerCount = 0
-list = {}
+local trainspawned = false
+local playerCount = 0
+local playerList = {}
+local msCheck = 5000
 
-
-RegisterServerEvent("hardcap:playerActivated")
+RegisterServerEvent("playerActivated")
 RegisterServerEvent("playerDropped")
 
-function ActivateTrain ()
-	if (PlayerCount) == 1 and not trainspawned then
-		TriggerClientEvent('StartTrain', GetHostId())
+function ActivateTrain()
+	--print(" *"..GetCurrentResourceName()..": train spawn check. next check from " .. msCheck/1000 .. "s.")
+	--print(" *"..GetCurrentResourceName()..": host:"..GetHostId().." hostname:"..GetPlayerName(GetHostId()))
+	if playerCount == 1 and (not trainspawned) then
+		TriggerClientEvent(GetCurrentResourceName()..":startTrain", GetHostId())
+		TriggerClientEvent(GetCurrentResourceName()..":startMetroTrain", GetHostId())
 		trainspawned = true
 	else
-		SetTimeout(15000,ActivateTrain)
-		if (PlayerCount) == 0 then
+		SetTimeout(msCheck, ActivateTrain)
+		if playerCount == 0 then
 			trainspawned = false
 		end
 	end
 end
---snippet from hardcap to make PlayerCount work
 
--- yes i know i'm lazy
-AddEventHandler('hardcap:playerActivated', function()
-  if not list[source] then
-    PlayerCount = PlayerCount + 1
-    list[source] = true
-		if (PlayerCount) == 1 then -- new session?
-			SetTimeout(15000,ActivateTrain)
+AddEventHandler("playerActivated", function()
+	if not playerList[source] then
+		playerCount = playerCount + 1
+		playerList[source] = true
+
+		if playerCount == 1 then
+			SetTimeout(msCheck, ActivateTrain)
 		end
-  end
+	end
 end)
 
-AddEventHandler('playerDropped', function()
-  if list[source] then
-    PlayerCount = PlayerCount - 1
-    list[source] = nil
-  end
+AddEventHandler("playerDropped", function()
+	if playerList[source] then
+		playerCount = playerCount - 1
+		playerList[source] = nil
+	end
 end)
 
+AddEventHandler('onResourceStart', function (resource)
+	local currentResource = GetCurrentResourceName()
+    if resource == currentResource then
+		for v in ipairs(GetPlayers()) do
+			playerCount = playerCount + 1
+			playerList[v] = true
+		end
 
+		if playerCount > 0 then
+			print(" *"..GetCurrentResourceName()..": #players > 0 - spawn trains")
+			--print(" *"..GetCurrentResourceName()..": host:"..GetHostId().." hostname:"..GetPlayerName(GetHostId()))
+
+			SetTimeout(msCheck/2, function()
+				TriggerClientEvent(GetCurrentResourceName()..":startTrain", GetHostId())
+				TriggerClientEvent(GetCurrentResourceName()..":startMetroTrain", GetHostId())
+				trainspawned = true
+			end)
+			SetTimeout(msCheck, ActivateTrain)
+		end
+    end
+end)
