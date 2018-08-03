@@ -1,3 +1,6 @@
+@import url("https://fonts.googleapis.com/css?family=Fira+Sans:400,400i,700,700i&amp;subset=cyrillic-ext");
+@import url("https://fonts.googleapis.com/css?family=Fira+Sans+Condensed&subset=cyrillic-ext");
+
 body {
 	background-color: transparent;
 	margin: 0px;
@@ -15,12 +18,16 @@ ul {
 	left: 16px;
 	width: 720px;
 	font-size: 16px;
-	font-family: "Fira Sans", "Segoe UI", "Segoe UI Symbol", "Segoe UI Emoji",  Arial, sans-serif;
+	font-family: "Fira Sans", "Segoe UI", "Segoe UI Symbol", "Segoe UI Emoji", Arial, sans-serif;
 	color: #fff;
 	overflow: hidden;
 	text-shadow: 0px 0px 1px #333;
 	/*text-shadow: 1px 1px 2px #333;*/
 	opacity: 0
+}
+
+#chatNickname {
+	font-family: "Fira Sans Condensed", "Segoe UI", "Segoe UI Symbol", "Segoe UI Emoji", Arial, sans-serif;
 }
 
 input.fake {

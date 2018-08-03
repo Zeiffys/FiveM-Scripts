@@ -41,13 +41,12 @@ RegisterNetEvent("chat:allowedCommand")
 AddEventHandler("chat:allowedCommand", function(allowedCommands)
 	chatAllowedCommands = allowedCommands
 
-	if GetRegisteredCommands then
+	if GetRegisteredCommands() then
 		local registeredCommands = GetRegisteredCommands()
-		--for i,v in ipairs(chatAllowedCommands) do table.remove(t, i) end -- just fix
 
 		for _, command in ipairs(registeredCommands) do
-			if IsAceAllowed(('command.%s'):format(command.name)) then
-				for i, v in ipairs(chatAllowedCommands) do -- fix fivem shit
+			if IsAceAllowed(("command.%s"):format(command.name)) then
+				for i, v in ipairs(chatAllowedCommands) do -- remove old shit and fix fivem shit
 					if v:lower() == command.name:lower() then
 						table.remove(chatAllowedCommands, i)
 					end
@@ -57,20 +56,6 @@ AddEventHandler("chat:allowedCommand", function(allowedCommands)
 		end
 	end
 end)
-
-function string.split(s) --so kek
-	local t = {}
-	local i = 1
-	for v in string.gmatch(s, "([^%s]+)") do
-		t[i] = v
-		i = i + 1
-	end
-	return t
-end
-
-function escape(s)
-	return s:gsub("%^([0-9*_~=r])", "")
-end
 
 Citizen.CreateThread(function()
 	SetNuiFocus(false)

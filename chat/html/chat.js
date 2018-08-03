@@ -130,7 +130,7 @@ $(function()
 			inputShown = true;
 
 			$("#chatBackground").stop();
-			$("#chatBackground").animate({ opacity: 1 }, 500);
+			$("#chatBackground").animate({ opacity: 0.9 }, 500);
 
 			$("#chat").stop();
 			$("#chat").animate({ opacity: 1 }, 500);
@@ -151,7 +151,7 @@ $(function()
 
 		if (name != "")
 		{
-			nameStr = name + ": ";
+			nameStr = "<font id=\"chatNickname\">" + name + "</font>: ";
 		}
 
 		buf.find("ul").append("<li>" + nameStr + message + "</li>");
@@ -160,7 +160,7 @@ $(function()
 		
 
 		$("#chatBackground").stop();
-		$("#chatBackground").animate({ opacity: 1 }, 500);
+		$("#chatBackground").animate({ opacity: 0.9 }, 500);
 
 		$("#chat").stop();
 		$("#chat").animate({ opacity: 1 }, 500);
