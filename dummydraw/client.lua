@@ -2,7 +2,7 @@ Citizen.CreateThread(function()
 	-- настройки для педа
 	local pedbones = false -- default false
 	local pedsize = 0.005 -- default 0.005 (0.0 - 0.015)
-	local pedalpha = false  -- default true
+	local pedalpha = true  -- default true
 
 	-- настройки для машины
 	local carsize = 0.01 -- default 0.01 (0.0 - 0.025)
@@ -10,6 +10,7 @@ Citizen.CreateThread(function()
 	local carbonenames = true -- default true
 	local carbonenamessize = 0.4 -- default 0.4 (0.0 - 1.0)
 	local carbonenamesdist = 7.5 -- default 7.5 (0.0 - 25.0)
+	local caraxislines = false -- default false
 
 	-- рабочая часть --
 	local carbonesstr = {"aileron_l", "aileron_r", "attach_female", "attach_male", "bodyshell", "bogie_f", "bogie_r", "bonnet", "boot", "bottle01", "bottle02", "bottle03", "bottle04", "bottle05", "brakelight_l", "brakelight_m", "brakelight_r", "bucket", "bumper_f", "bumper_r", "chassis", "chassis_dummy", "chassis_lowlod", "cockpit", "crane", "dashglow", "dials", "door_dside_f", "door_dside_r", "door_pside_f", "door_pside_r", "doorlight_lf", "doorlight_lr", "doorlight_rf", "doorlight_rl", "doorlight_rr", "elevator_l", "elevator_r", "emissives", "engine", "exhaust", "exhaust_1", "exhaust_2", "exhaust_3", "exhaust_4", "exhaust_5", "exhaust_6", "exhaust_7", "exhaust_8", "extra_1", "extra_11", "extra_12", "extra_13", "extra_14", "extra_15", "extra_16", "extra_17", "extra_18", "extra_19", "extra_2", "extra_3", "extra_4", "extra_5", "extra_6", "extra_7", "extra_8", "extra_9", "extra_ten", "extralight_1", "extralight_2", "extralight_3", "extralight_4", "gauges", "gear_door_fl", "gear_door_fr", "gear_door_rl1", "gear_door_rl2", "gear_door_rr1", "gear_door_rr2", "gear_f", "gear_rl", "gear_rr", "handle_dside_f", "handle_dside_r", "handle_pside_f", "handle_pside_r", "hbgrip_l", "hbgrip_r", "headlight_l", "headlight_r", "hub_lf", "hub_lm1", "hub_lm2", "hub_lm3", "hub_lr", "hub_rf", "hub_rm1", "hub_rm2", "hub_rm3", "hub_rr", "indicator_lf", "indicator_lr", "indicator_rf", "indicator_rr", "inkpot01", "inkpot02", "interior_1", "interior_2", "interior_3", "interior_4", "interior_detail", "interiorlight", "ladder", "legs", "lights", "misc_a", "misc_b", "misc_c", "misc_d", "misc_e", "misc_f", "misc_g", "misc_h", "misc_i", "misc_j", "misc_k", "misc_l", "misc_m", "misc_n", "misc_o", "misc_p", "misc_q", "misc_r", "misc_s", "misc_t", "misc_u", "misc_v", "misc_w", "misc_x", "misc_y", "misc_z", "mod_col_1", "mod_col_2", "mod_col_3", "mod_col_4", "mod_col_5", "mod_col_6", "mod_col_7", "mod_col_8", "mod_col_9", "neon_b", "neon_f", "neon_l", "neon_r", "overheat", "overheat_2", "petrolcap", "petroltank", "petroltank_l", "petroltank_r", "platelight", "radio", "reversinglight_l", "reversinglight_r", "roof", "rotor_main", "rotor_main_fast", "rotor_main_slow", "rotor_rear", "rotor_rear_fast", "rotor_rear_slow", "rudder", "rudder2", "scoop", "seat_dside_f", "seat_dside_r", "seat_dside_r1", "seat_dside_r2", "seat_dside_r3", "seat_pside_f", "seat_pside_r", "seat_pside_r1", "seat_pside_r2", "seat_pside_r3", "siren1", "siren10", "siren11", "siren12", "siren13", "siren14", "siren15", "siren16", "siren17", "siren18", "siren19", "siren2", "siren20", "siren21", "siren22", "siren23", "siren24", "siren25", "siren26", "siren27", "siren28", "siren29", "siren3", "siren4", "siren5", "siren6", "siren7", "siren8", "siren9", "siren_glass1", "siren_glass10", "siren_glass11", "siren_glass12", "siren_glass13", "siren_glass14", "siren_glass15", "siren_glass16", "siren_glass17", "siren_glass18", "siren_glass19", "siren_glass2", "siren_glass3", "siren_glass4", "siren_glass5", "siren_glass6", "siren_glass7", "siren_glass8", "siren_glass9", "slipstream_l", "slipstream_r", "soft_1", "soft_2", "soft_3", "soft_4", "soft_5", "soft_6", "static_prop", "static_prop2", "steeringwheel", "suspension_lf", "suspension_lm", "suspension_lr", "suspension_rf", "suspension_rm", "suspension_rr", "tail", "tail_damage", "taillight_l", "taillight_r", "track_l", "track_r", "transmission_f", "transmission_m", "transmission_r", "wheel_lf", "wheel_lm1", "wheel_lm2", "wheel_lr", "wheel_rf", "wheel_rm1", "wheel_rm2", "wheel_rr", "wheelmesh_lf", "wheelmesh_lf_l1", "wheelmesh_lf_l2", "wheelmesh_lf_ng", "wheelmesh_lr", "wheelmesh_lr_l1", "wheelmesh_lr_l2", "wheelmesh_lr_ng", "window_lf", "window_lf1", "window_lf2", "window_lm", "window_lm1", "window_lm2", "window_lm3", "window_lr", "window_rf", "window_rf1", "window_rf2", "window_rm", "window_rm1", "window_rm2", "window_rm3", "window_rr", "windscreen", "windscreen[L1]", "windscreen_left", "windscreen_r", "windscreen_right", "wing_l", "wing_lf", "wing_lr", "wing_r", "wing_rf", "wing_rr", "wingtip_1", "wingtip_2"}
@@ -42,7 +43,13 @@ Citizen.CreateThread(function()
 				local bone = GetEntityBoneIndexByName(vehicle, v)
 				local bone = GetWorldPositionOfEntityBone(vehicle, bone)
 
-				if Vdist(bone.x, bone.y, bone.z, vehiclepos.x, vehiclepos.y, vehiclepos.z) > 0.005 then
+				if v == "chassis_dummy" and caraxislines then
+					DrawLine(bone.x - 8192.0, bone.y, bone.z, bone.x + 8192.0, bone.y, bone.z, 200, 0, 0, 255)
+					DrawLine(bone.x, bone.y - 8192.0, bone.z, bone.x, bone.y + 8192.0, bone.z, 0, 200, 0, 255)
+					DrawLine(bone.x, bone.y, bone.z - 8192.0, bone.x, bone.y, bone.z + 8192.0, 0, 0, 200, 255)
+				end
+
+				if Vdist(bone.x, bone.y, bone.z, vehiclepos.x, vehiclepos.y, vehiclepos.z) > (v == "chassis_dummy" and -0 or 0.005) then
 					DrawBox(bone.x - carsize, bone.y - carsize, bone.z - carsize, bone.x + carsize, bone.y + carsize, bone.z + carsize, 0, 255, 0, 220)
 					if carbonenames then
 						local onScreen, _x, _y = World3dToScreen2d(bone.x, bone.y, bone.z)
