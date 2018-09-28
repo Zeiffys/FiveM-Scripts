@@ -1,170 +1,184 @@
-function colorize(str)
-{
-	let s = "<span>" + (str.replace(/\^([0-9])/g, (str, color) => `</span><span class="color-${color}">`)) + "</span>";
+var chatBoxHideTime;
+var chatBoxInput = false;
+var isPauseMenuActive = false;
+const twemojiset = {folder:"svg", ext:".svg"};
 
+function formatMessage(message) {
+	const styleRegex = /\^(\_|\*|\=|\~|\/|r)(.*?)(?=$|\^r|<\/span>)/;
 	const styleDict = {
+		'/': 'font-style: italic;',
 		'*': 'font-weight: bold;',
 		'_': 'text-decoration: underline;',
 		'~': 'text-decoration: line-through;',
 		'=': 'text-decoration: underline line-through;',
-		'r': 'text-decoration: none;font-weight: normal;',
+		'r': 'text-decoration: none; font-weight: normal;',
 	};
 
-	const styleRegex = /\^(\_|\*|\=|\~|\/|r)(.*?)(?=$|\^r|<\/span>)/;
-	while (s.match(styleRegex)) {
-		s = s.replace(styleRegex, (str, style, inner) => `<span style="${styleDict[style]}">${inner}</span>`);
+	message = message
+		.replace(/&/g, "&amp;")
+		.replace(/</g, "&lt;")
+		.replace(/>/g, "&gt;")
+		.replace(/"/g, "&quot;")
+		.replace(/'/g, "&#039;");
+
+	message = message.replace(/\^([1-9bgypqocmwsu])/gi, "</span><span class=\"color-$1\">");
+	message = message.replace(/\^#([0-9A-F][0-9A-F])([0-9A-F][0-9A-F])([0-9A-F][0-9A-F])/gi, "</span><span style=\"color: #$1$2$3;\">");
+	message = message.replace(/\^0/g, "</span>");
+
+	while (message.match(styleRegex)) {
+		message = message.replace(styleRegex, (str, style, inner) => `<span style="${styleDict[style]}">${inner}</span>`);
 	}
 
-	return s.replace(/<span[^>]*><\/span[^>]*>/g, "");
+	return message.replace(/<span[^>]*><\/span[^>]*>/gi, "");
 }
 
-function escape(unsafe) {
-	return unsafe
-		.replace(/&/g, '&amp;')
-		.replace(/</g, '&lt;')
-		.replace(/>/g, '&gt;')
-		.replace(/"/g, '&quot;')
-		.replace(/'/g, '&#039;');
-}
 
-$(function()
+function showChatBox()
 {
-	var chatHideTimeout;
-	var inputShown = false;
-
-	function startHideChat()
+	if (!isPauseMenuActive)
 	{
-		if (chatHideTimeout)
-		{
-			clearTimeout(chatHideTimeout);
-		}
+		$("#chatBox").stop();
+		$("#chatBoxBg").stop();
 
-		if (inputShown)
-		{
-			return;
-		}
-
-		chatHideTimeout = setTimeout(function()
-		{
-			if (inputShown)
-			{
-				return;
-			}
-
-			$("#chat").animate({ opacity: 0 }, 2500);
-			$("#chatBackground").animate({ opacity: 0 }, 2500);
-		}, 5000);
+		$("#chatBox").animate({opacity: 1}, 500);
+		$("#chatBoxBg").animate({opacity: 0.9}, 500);
 	}
+}
 
-	handleResult = function(elem, wasEnter)
+function hideChatBox(time)
+{
+	if (!time) time = 5000
+	if (chatBoxHideTime) clearTimeout(chatBoxHideTime);
+	chatBoxHideTime = setTimeout(function()
 	{
-		inputShown = false;
+		if (chatBoxInput) return;
+		$("#chatBox").animate({opacity: 0}, 2500);
+		$("#chatBoxBg").animate({opacity: 0}, 2500);
+	}, time);
+}
 
-		//$("#chatInputHas").hide();
-		$("#chatInputHas").animate({ opacity: 0 }, 100);
-		
-
-		startHideChat();
-
-		var obj = {};
-
-		if (wasEnter)
-		{
-			obj = { message: $(elem).val() };
-		}
-
-		$(elem).val("");
-
-		$.post("http://chat/chatResult", JSON.stringify(obj), function(data)
-		{
-			//console.log(data);
-		});
-	};
-
-	$("#chatInput").fakeTextbox();
-
-	$("#chatInput")[0].onPress(function(e)
+function showChatBoxInput()
+{
+	if (!isPauseMenuActive)
 	{
-		if (e.which == 13)
-		{
-			handleResult(this, true);
-		}
-	});
+		chatBoxInput = true;
+		$("#chatInputText").val("")
+		$("#chatInput").stop();
+		$("#chatInput").animate({opacity: 1}, 100);
+		$("#chatInputText").focus();
+	}
+}
 
-	$(document).keyup(function(e)
+function hideChatBoxInput()
+{
+	chatBoxInput = false;
+	$("#chatInput").stop();
+	$("#chatInput").animate({opacity: 0}, 100);
+	$("#chatInputText").blur();
+	setTimeout(function()
 	{
-		if (e.keyCode == 27)
-		{
-			handleResult($("#chatInput")[0].getTextBox(), false);
-		}
-	});
+		$("#chatInputText").val("")
+	}, 150)
+}
 
-	$(document).keydown(function(e)
+function outputChatBox(name, message)
+{
+	var chat = $("#chatBoxBuffer");
+	var message = twemoji.parse(formatMessage(message), twemojiset);
+
+	var nameStr = "";
+	if (name != "") nameStr = "<font class=\"chatBoxName\">" + formatMessage(name) + "</font>: ";
+
+	chat.find("ul").append("<li>" + nameStr + message + "</li>");
+
+	chat.stop();
+	chat.animate({scrollTop:chat[0].scrollHeight - chat.height()}, 150);
+}
+
+function SendResult(message)
+{
+	var content = {hasMessage: false}
+	if (message)
 	{
-		var scrollSize = 57 // 3 messages // 1 msg = 19px with 16px text size
-		if (e.keyCode == 9)
-		{
-			e.preventDefault();
-			return false;
-		}
-		else if (e.keyCode == 33)
-		{
-			let buf = $("#chatBuffer");
-			//buf.scrollTop(buf.scrollTop() - scrollSize);
-			buf.animate({scrollTop:buf.scrollTop()-scrollSize}, 100);
-		}
-		else if (e.keyCode == 34)
-		{
-			let buf = $("#chatBuffer");
-			//buf.scrollTop(buf.scrollTop() + scrollSize);
-			buf.animate({scrollTop:buf.scrollTop()+scrollSize}, 100);
-		}
-	});
+		content = {hasMessage: true, message: message}
+	}
+	$.post("http://chat/chatResult", JSON.stringify(content));
+	hideChatBox()
+	hideChatBoxInput()
+}
 
-	window.addEventListener("message", function(event)
+function scrollChatBox(pos)
+{
+	var size = 24 * 2
+	var chat = $("#chatBoxBuffer");
+	if (pos == "up") {
+		size = chat.scrollTop() - size
+	} else if (pos == "down") {
+		size = chat.scrollTop() + size
+	}
+	chat.stop();
+	chat.animate({scrollTop: size}, 150);
+}
+
+function onKeyUp(event)
+{
+	var key = event.keyCode;
+	if (key == 13) {
+		SendResult($("#chatInputText").val())
+	} else if (key == 27) {
+		SendResult()
+	}
+}
+
+function onKeyDown(event)
+{
+	var key = event.keyCode;
+	if (key == 9 || key == 13) {
+		event.preventDefault();
+		event.stopPropagation();
+		return false;
+	} else if (key == 33) {
+		scrollChatBox("up")
+	} else if (key == 34) {
+		scrollChatBox("down")
+	}
+}
+
+document.querySelector("body").onkeydown = function(e) {
+	if (e.keyCode)
 	{
-		var item = event.data;
+		onKeyDown(event)
+	}
+};
 
-		if (item.meta && item.meta == "openChatBox")
-		{
-			inputShown = true;
+window.addEventListener("message", function(event) {
+	var item = event.data;
+	var meta = item.meta;
 
-			$("#chatBackground").stop();
-			$("#chatBackground").animate({ opacity: 0.9 }, 500);
-
-			$("#chat").stop();
-			$("#chat").animate({ opacity: 1 }, 500);
-
-			$("#chatInputHas").show();
-			$("#chatInputHas").animate({ opacity: 1 }, 100);
-			$("#chatInput")[0].doFocus();
-
-			return;
+	if (meta)
+	{
+		if (meta == "openChatBox") {
+			showChatBox()
+			showChatBoxInput()
+		} else if (meta == "closeChatBox") {
+			hideChatBox()
+			hideChatBoxInput()
+		} else if (meta == "outputChatBox") {
+			showChatBox()
+			hideChatBox()
+			outputChatBox(item.name, item.message)
+		} else if (meta == "pauseMenuActive") {
+			$("#chatBox").css("opacity", 0);
+			$("#chatBoxBg").css("opacity", 0);
+			$("#chatInput").css("opacity", 0);
+			$("#chatInputText").blur();
+			$("#chatInputText").val("")
+			chatBoxInput = false;
+			isPauseMenuActive = true;
+		} else if (meta == "pauseMenuNotActive") {
+			isPauseMenuActive = false;
+			showChatBox()
+			hideChatBox(250)
 		}
-
-		var name = colorize(escape(item.name));
-		var message = colorize(escape(item.message));
-
-		var buf = $("#chatBuffer");
-
-		var nameStr = "";
-
-		if (name != "")
-		{
-			nameStr = "<font id=\"chatNickname\">" + name + "</font>: ";
-		}
-
-		buf.find("ul").append("<li>" + nameStr + message + "</li>");
-		//buf.scrollTop(buf[0].scrollHeight - buf.height());
-		buf.animate({scrollTop:buf[0].scrollHeight - buf.height()}, 100);
-		
-
-		$("#chatBackground").stop();
-		$("#chatBackground").animate({ opacity: 0.9 }, 500);
-
-		$("#chat").stop();
-		$("#chat").animate({ opacity: 1 }, 500);
-
-		startHideChat();
-	}, false);
-});
+	}
+}, false);

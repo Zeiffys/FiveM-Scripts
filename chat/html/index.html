@@ -3,19 +3,19 @@
 		<title>FiveM Chat</title>
 		<link href="style.css" rel="stylesheet" type="text/css"/>
 		<script src="nui://game/ui/jquery.js"></script>
-		<script src="chat.js"></script>
-		<script src="jquery.faketextbox.js"></script>
+		<script src="https://twemoji.maxcdn.com/2/twemoji.min.js"></script>
 	</head>
 
 	<body>
-		<div id="chatBackground"></div>
-		<div id="chat">
-			<div id="chatBuffer">
+		<div id="chatBoxBg"></div>
+		<div id="chatBox">
+			<div id="chatBoxBuffer">
 				<ul></ul>
 			</div>
-			<div id="chatInputHas">
-				&#10148;
-				<div id="chatInput"></div>
+
+			<div id="chatInput">
+				<span class="chatInputPrefix">&#10148;</span>
+				<input id="chatInputText" autofocus maxlength="256" type="text" spellcheck="false" ref="input" onkeyup="onKeyUp(event);" wrap="off"></input>
 			</div>
 		</div>
 
@@ -30,5 +30,6 @@
 			setZoomLevel();
 			window.addEventListener('resize', setZoomLevel);
 		</script>
+		<script src="chat.js"></script>
 	</body>
 </html>

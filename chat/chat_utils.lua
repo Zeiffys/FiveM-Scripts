@@ -1,7 +1,7 @@
 function string.split(s)
 	local t = {}
 	local i = 1
-	for v in string.gmatch(s, "([^%s]+)") do
+	for v in s:gmatch("([^%s]+)") do
 		t[i] = v
 		i = i + 1
 	end
@@ -9,5 +9,8 @@ function string.split(s)
 end
 
 function escape(s)
-	return s:gsub("%^([0-9*_~=r])", "")
+	s = s:gsub("%^([0-9/*_~=rbgypqocmwsu])", "")
+	s = s:gsub("%^#([0-9a-f][0-9a-f])([0-9a-f][0-9a-f])([0-9a-f][0-9a-f])", "")
+	s = s:gsub("%s+", " ")
+	return s
 end

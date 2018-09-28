@@ -12,7 +12,7 @@ ul {
 	list-style-type: none;
 }
 
-#chat {
+#chatBox {
 	position: absolute;
 	top: 16px;
 	left: 16px;
@@ -22,76 +22,47 @@ ul {
 	color: #fff;
 	overflow: hidden;
 	text-shadow: 0px 0px 1px #333;
-	/*text-shadow: 1px 1px 2px #333;*/
 	opacity: 0
 }
 
-#chatNickname {
+.chatBoxName {
 	font-family: "Fira Sans Condensed", "Segoe UI", "Segoe UI Symbol", "Segoe UI Emoji", Arial, sans-serif;
 }
 
-input.fake {
-	position: absolute;
-	top: -10000px;
-	left: -10000px;
-}
-
-#chatInputHas {
-	display: none;
+#chatInput {
 	opacity: 0;
-}
-
-#chatInputHas strong {
 	display: inline-block;
 	vertical-align: bottom;
 	text-transform: uppercase;
-	height: 29px;
-	line-height: 26px;
+	height: 24px;
+	line-height: 24px;
 }
 
-#chatInput {
+#chatInputText {
 	background-color: transparent;
 	border: none;
-	outline: none !important;
-	padding: 3px;
-
-	display: inline-block;
-	vertical-align: middle;
-
-	margin: 0px;
-	color: #fff;
-	text-shadow: 0px 0px 1px #333;
-
-	font: inherit;
-
-	white-space: pre;
-	overflow: hidden;
-}
-
-#chatInput * > div:first-child {
-	display: inline-block;
-	vertical-align: middle;
-	height: 23px;
-	line-height: 20px;
-}
-
-#chatInput .caret {
-	display: inline-block;
-	min-width: 1px;
-	height: 22px;
-	margin-left: 1px;
-	vertical-align: bottom;
-	background-color: #fff;
-	box-shadow: 0px 0px 1px #333;
+	outline: none;
+	resize: none;
+	font-family: "Fira Sans Condensed", "Segoe UI", "Segoe UI Symbol", "Segoe UI Emoji", Arial, sans-serif;
 	color: white;
+	text-shadow: 0px 0px 1px #333;
+	height: 24px;
+	font-size: 16px;
+	width: calc(100% - 20px);
+	position: absolute;
+	padding-left: 20px;
 }
 
-#chatBuffer {
-	height: 190px;
+.chatInputPrefix {
+	position: absolute;
+}
+
+#chatBoxBuffer {
+	height: 240px/*190px*/;
 	overflow: hidden;
 }
 
-#chatBackground {
+#chatBoxBg {
 	width: 70vw;
 	height: 60vh;
 	background: radial-gradient(ellipse at center, rgba(0, 0, 0, .7) 0%, rgba(255, 255, 255, 0) 70%);
@@ -102,15 +73,39 @@ input.fake {
 	z-index: -1;
 }
 
-.color-0{color: #ffffff;}
+li {
+	line-height: 24px;
+}
+
+img.emoji {
+	cursor: pointer;
+	vertical-align: -6px;
+	width: 20px;
+}
+
 .color-1{color: #ff4444;}
 .color-2{color: #99cc00;}
 .color-3{color: #ffbb33;}
 .color-4{color: #0099cc;}
 .color-5{color: #33b5e5;}
 .color-6{color: #aa66cc;}
+.color-7{color: #ffffff;}
 .color-8{color: #cc0000;}
 .color-9{color: #cc0068;}
+
+.color-r{color: #DE3232;}
+.color-b{color: #5CB4E3;}
+.color-g{color: #71CA71;}
+.color-y{color: #EEC650;}
+.color-p{color: #8365E0;}
+.color-q{color: #E24F80;}
+.color-o{color: #FD8455;}
+.color-c{color: #8B8B8B;}
+.color-m{color: #636363;}
+.color-w{color: #FFFFFF;}
+.color-s{color: #FFFFFF;}
+.color-u{color: #000000;}
+
 
 ::-webkit-scrollbar {width: 3px;}
 ::-webkit-scrollbar-track {border-radius: 50%; height: 3px}
