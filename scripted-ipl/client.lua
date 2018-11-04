@@ -471,6 +471,20 @@ local scriptedipl = {
 	-- "ch1_12_props_night", -- -3226.935, 1234.811, 2.834
 }
 
+local interiors = {
+	{
+		coord = vector3(975.0, -3000.0, -40.0),
+		props = {
+			"basic_style_set",
+			-- "branded_style_set",
+			-- "urban_style_set",
+			-- "car_floor_hatch",
+			-- "door_blocker"
+		}
+		
+	}
+}
+
 Citizen.CreateThread(function()
 	for k, v in pairs(scriptedipl) do
 		if IsIplActive(v) then
@@ -485,12 +499,27 @@ Citizen.CreateThread(function()
 			end
 		end
 	end
+
+	for k, v in pairs(interiors) do
+		local int = GetInteriorAtCoords(v.coord)
+
+		if int ~= 0 then
+			if not IsInteriorDisabled(int) then
+				for k, v in pairs(v.props) do
+					EnableInteriorProp(int, v)
+				end
+
+				RefreshInterior(int)
+			end
+
+			Citizen.Wait(0)
+		end
+	end
 end)
 
---[[
 AddEventHandler("onResourceStop", function(resource)
 	if resource == GetCurrentResourceName() then
-		for k, v in pairs(scriptedipl) do
+		--[[for k, v in pairs(scriptedipl) do
 			if IsIplActive(v) then
 				RemoveIpl(v)
 				Citizen.Wait(0)
@@ -502,7 +531,22 @@ AddEventHandler("onResourceStop", function(resource)
 			else
 				Citizen.Trace(" *scripted-ipl: "..v.." already unloaded.\n")
 			end
+		end]]
+
+		for k, v in pairs(interiors) do
+			local int = GetInteriorAtCoords(v.coord)
+
+			if int ~= 0 then
+				if not IsInteriorDisabled(int) then
+					for k, v in pairs(v.props) do
+						DisableInteriorProp(int, v)
+					end
+
+					RefreshInterior(int)
+				end
+
+				Citizen.Wait(0)
+			end
 		end
 	end
 end)
-]]
