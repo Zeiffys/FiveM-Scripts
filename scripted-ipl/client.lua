@@ -473,26 +473,76 @@ local scriptedipl = {
 
 local scriptedint = {
 	{
-		coord = vector3(975.0, -3000.0, -40.0),
+		-- v_int_7 - Ammu-Nation with Shooting Range
+		coord = {vector3(10.907, -1105.658, 28.79693), vector3(821.144, -2154.892, 28.61892)},
 		props = {
-			"basic_style_set",
-			-- "branded_style_set",
-			-- "urban_style_set",
-			-- "car_floor_hatch",
-			-- "door_blocker"
+			"gunclubwallhooks"
 		}
-		
+	},
+	{
+		-- v_int_15 - Simeon's Car Showroom
+		coord = {vector3(-41.402, -1097.775, 25.423)},
+		props = {
+			-- "csr_aftermissiona",
+			-- "csr_aftermissionb",
+			"csr_beforemission",
+			-- "csr_inmission",
+			"shutter_closed",
+			-- "shutter_open"
+		}
+	},
+	{
+		-- v_int_17 - Apartment Mid Spaz
+		coord = {vector3(342.8157, -997.4288, -100.0), vector3(575.0, 4750.0, -60.0)},
+		props = {
+			"apart_mid_strip_c"
+		}
+	},
+	{
+		-- v_int_17 - Apartment High
+		coord = {
+			vector3(300.633, -997.4288, -100.0), vector3(-13.08014, -593.6168, 93.02542), vector3(-32.17249, -579.0183, 82.90739), vector3(-282.3038, -954.7815, 85.30347), vector3(-260.882, -953.5573, 70.0239),
+			vector3(-475.0457, -706.6808, 46.19836), vector3(-460.6133, -691.5562, 69.87947), vector3(-892.296, -434.4147, 88.25368), vector3(-904.5669, -377.0005, 78.27306), vector3(-909.1017, -438.1902, 114.3997),
+			vector3(-925.5497, -374.2203, 102.2329), vector3(-889.303, -451.7751, 119.327), vector3(-791.2941, 338.071, 200.4135), vector3(-764.8131, 319.1851, 216.0503), vector3(-791.7613, 338.4633, 152.7941),
+			vector3(-764.7225, 319.1851, 169.5963), vector3(-613.5404, 63.04871, 100.8196), vector3(-587.8259, 44.2688, 86.4187), vector3(-1468.021, -529.9438, 62.34918), vector3(-1468.021, -529.9438, 49.72156)
+		},
+		props = {
+			"apart_hi_booze_a",
+			-- "apart_hi_booze_b",
+			-- "apart_hi_booze_c",
+			"apart_hi_smokes_a",
+			-- "apart_hi_smokes_b",
+			-- "apart_hi_smokes_c",
+			-- "apart_hi_strip_a",
+			-- "apart_hi_strip_b",
+			-- "apart_hi_strip_c"
+		}
 	},
 	{
 		-- v_int_19 - Strip Club
-		coord = vector3(128.793, -1292.104, 27.89262),
+		coord = {vector3(128.793, -1292.104, 27.89262)},
 		props = {
 			-- "v_19_trevor_mess"
 		}
 	},
 	{
+		-- v_int_24 - Franklin House 3671
+		coord = {vector3(3.199463, 529.7808, 169.6262)},
+		props = {
+			-- "franklin_settled",
+			-- "showhome_only",
+			-- "bong_and_wine",
+			"unlocked",
+			-- "locked",
+			"franklin_unpacking",
+			-- "progress_tux",
+			-- "progress_flyer",
+			-- "progress_tshirt"
+		}
+	},
+	{
 		-- v_int_44 - Michael House
-		coord = vector3(-807.343, 174.9807, 71.16331),
+		coord = {vector3(-807.343, 174.9807, 71.16331)},
 		props = {
 			"v_michael_d_items",
 			"v_michael_m_items",
@@ -514,14 +564,50 @@ local scriptedint = {
 		}
 	},
 	{
+		-- v_int_44 - Michael House Garage
+		coord = {vector3(-811.3328, 187.5126, 71.47429)},
+		props = {
+			-- "v_michael_scuba"
+		}
+	},
+	{
 		-- v_int_57 - 1st Franklin House
-		coord = vector3(-11.82915, -1437.688, 30.10579),
+		coord = {vector3(-11.82915, -1437.688, 30.10579)},
 		props = {
 			-- "v_57_franklinstuff",
 			"v_57_franklin_left",
 			-- "v_57_gangbandana",
 			-- "v_57_safari"
 		}
+	},
+	{
+		-- v_int_74 - FIB Exploded Room - Lower floors
+		coord = {vector3(135.3325, -746.3666, 245.1522)},
+		props = {
+			"v_fib02_set_ah3b",
+			"v_fib02_set_ah3a"
+		}
+	},
+	{
+		-- v_int_74 - FIB Exploded Room - Upper floors
+		coord = {vector3(135.3324, -746.3666, 253.1522)},
+		props = {
+			"v_fib03_set_ah3a",
+			"v_fib03_set_ah3b",
+			"v_fib03_door_light"
+		}
+	},
+
+	{
+		coord = {vector3(975.0, -3000.0, -40.0)},
+		props = {
+			"basic_style_set",
+			-- "branded_style_set",
+			-- "urban_style_set",
+			-- "car_floor_hatch",
+			-- "door_blocker"
+		}
+		
 	}
 }
 
@@ -541,27 +627,29 @@ Citizen.CreateThread(function()
 	end
 
 	for k, v in pairs(scriptedint) do
-		local int = GetInteriorAtCoords(v.coord)
+		for k, c in pairs(v.coord) do
+			local int = GetInteriorAtCoords(c)
 
-		if int ~= 0 then
-			if not IsInteriorDisabled(int) then
-				for k, v in pairs(v.props) do
-					if IsInteriorPropEnabled(int, v) then
-						-- Citizen.Trace(" *scripted-int: "..v.." already enabled for "..int..".\n")
-					else
-						EnableInteriorProp(int, v)
+			if int ~= 0 then
+				if not IsInteriorDisabled(int) then
+					for k, v in pairs(v.props) do
 						if IsInteriorPropEnabled(int, v) then
-							Citizen.Trace(" *scripted-int: "..v.." enabled for "..int..".\n")
+							-- Citizen.Trace(" *scripted-int: "..v.." already enabled for "..int..".\n")
 						else
-							Citizen.Trace(" *scripted-int: error while enable "..v.." for "..int..".\n")
+							EnableInteriorProp(int, v)
+							if IsInteriorPropEnabled(int, v) then
+								Citizen.Trace(" *scripted-int: "..v.." enabled for "..int..".\n")
+							else
+								Citizen.Trace(" *scripted-int: error while enable "..v.." for "..int..".\n")
+							end
 						end
 					end
+
+					RefreshInterior(int)
 				end
 
-				RefreshInterior(int)
+				Citizen.Wait(0)
 			end
-
-			Citizen.Wait(0)
 		end
 	end
 end)
@@ -583,24 +671,26 @@ AddEventHandler("onResourceStop", function(resource)
 		end]]
 
 		for k, v in pairs(scriptedint) do
-			local int = GetInteriorAtCoords(v.coord)
+			for k, c in pairs(v.coord) do
+				local int = GetInteriorAtCoords(c)
 
-			if int ~= 0 then
-				if not IsInteriorDisabled(int) then
-					for k, v in pairs(v.props) do
-						if IsInteriorPropEnabled(int, v) then
-							DisableInteriorProp(int, v)
+				if int ~= 0 then
+					if not IsInteriorDisabled(int) then
+						for k, v in pairs(v.props) do
 							if IsInteriorPropEnabled(int, v) then
-								Citizen.Trace(" *scripted-int: error while disable "..v.." for "..int..".\n")
+								DisableInteriorProp(int, v)
+								if IsInteriorPropEnabled(int, v) then
+									Citizen.Trace(" *scripted-int: error while disable "..v.." for "..int..".\n")
+								else
+									Citizen.Trace(" *scripted-int: "..v.." disabled for "..int..".\n")
+								end
 							else
-								Citizen.Trace(" *scripted-int: "..v.." disabled for "..int..".\n")
+								-- Citizen.Trace(" *scripted-int: "..v.." already disabled for "..int..".\n")
 							end
-						else
-							-- Citizen.Trace(" *scripted-int: "..v.." already disabled for "..int..".\n")
 						end
-					end
 
-					RefreshInterior(int)
+						RefreshInterior(int)
+					end
 				end
 			end
 		end
