@@ -471,7 +471,7 @@ local scriptedipl = {
 	-- "ch1_12_props_night", -- -3226.935, 1234.811, 2.834
 }
 
-local interiors = {
+local scriptedint = {
 	{
 		coord = vector3(975.0, -3000.0, -40.0),
 		props = {
@@ -484,6 +484,37 @@ local interiors = {
 		
 	},
 	{
+		-- v_int_19 - Strip Club
+		coord = vector3(128.793, -1292.104, 27.89262),
+		props = {
+			-- "v_19_trevor_mess"
+		}
+	},
+	{
+		-- v_int_44 - Michael House
+		coord = vector3(-807.343, 174.9807, 71.16331),
+		props = {
+			"v_michael_d_items",
+			"v_michael_m_items",
+			-- "v_michael_m_items_swap",
+			"v_michael_s_items",
+			-- "v_michael_s_items_swap",
+			-- "burgershot_yoga",
+			-- "michael_premier",
+			-- "v_michael_d_moved",
+			-- "v_michael_m_moved",
+			-- "v_michael_l_moved",
+			"v_michael_l_items",
+			-- "v_michael_jewelheist",
+			-- "v_michael_fameshame",
+			-- "v_michael_plane_ticket",
+			-- "v_michael_bed_messy",
+			"v_michael_bed_tidy",
+			-- "v_michael_book"
+		}
+	},
+	{
+		-- v_int_57 - 1st Franklin House
 		coord = vector3(-11.82915, -1437.688, 30.10579),
 		props = {
 			-- "v_57_franklinstuff",
@@ -497,7 +528,7 @@ local interiors = {
 Citizen.CreateThread(function()
 	for k, v in pairs(scriptedipl) do
 		if IsIplActive(v) then
-			Citizen.Trace(" *scripted-ipl: "..v.." already loaded.\n")
+			-- Citizen.Trace(" *scripted-ipl: "..v.." already loaded.\n")
 		else
 			RequestIpl(v)
 			Citizen.Wait(0)
@@ -509,13 +540,22 @@ Citizen.CreateThread(function()
 		end
 	end
 
-	for k, v in pairs(interiors) do
+	for k, v in pairs(scriptedint) do
 		local int = GetInteriorAtCoords(v.coord)
 
 		if int ~= 0 then
 			if not IsInteriorDisabled(int) then
 				for k, v in pairs(v.props) do
-					EnableInteriorProp(int, v)
+					if IsInteriorPropEnabled(int, v) then
+						-- Citizen.Trace(" *scripted-int: "..v.." already enabled for "..int..".\n")
+					else
+						EnableInteriorProp(int, v)
+						if IsInteriorPropEnabled(int, v) then
+							Citizen.Trace(" *scripted-int: "..v.." enabled for "..int..".\n")
+						else
+							Citizen.Trace(" *scripted-int: error while enable "..v.." for "..int..".\n")
+						end
+					end
 				end
 
 				RefreshInterior(int)
@@ -531,30 +571,37 @@ AddEventHandler("onResourceStop", function(resource)
 		--[[for k, v in pairs(scriptedipl) do
 			if IsIplActive(v) then
 				RemoveIpl(v)
-				Citizen.Wait(0)
+				-- Citizen.Wait(0)
 				if IsIplActive(v) then
 					Citizen.Trace(" *scripted-ipl: "..v.." error while unloading.\n")
 				else
 					Citizen.Trace(" *scripted-ipl: "..v.." unloaded.\n")
 				end
 			else
-				Citizen.Trace(" *scripted-ipl: "..v.." already unloaded.\n")
+				-- Citizen.Trace(" *scripted-ipl: "..v.." already unloaded.\n")
 			end
 		end]]
 
-		for k, v in pairs(interiors) do
+		for k, v in pairs(scriptedint) do
 			local int = GetInteriorAtCoords(v.coord)
 
 			if int ~= 0 then
 				if not IsInteriorDisabled(int) then
 					for k, v in pairs(v.props) do
-						DisableInteriorProp(int, v)
+						if IsInteriorPropEnabled(int, v) then
+							DisableInteriorProp(int, v)
+							if IsInteriorPropEnabled(int, v) then
+								Citizen.Trace(" *scripted-int: error while disable "..v.." for "..int..".\n")
+							else
+								Citizen.Trace(" *scripted-int: "..v.." disabled for "..int..".\n")
+							end
+						else
+							-- Citizen.Trace(" *scripted-int: "..v.." already disabled for "..int..".\n")
+						end
 					end
 
 					RefreshInterior(int)
 				end
-
-				Citizen.Wait(0)
 			end
 		end
 	end
