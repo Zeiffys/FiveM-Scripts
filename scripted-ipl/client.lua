@@ -482,6 +482,15 @@ local interiors = {
 			-- "door_blocker"
 		}
 		
+	},
+	{
+		coord = vector3(-11.82915, -1437.688, 30.10579),
+		props = {
+			-- "v_57_franklinstuff",
+			"v_57_franklin_left",
+			-- "v_57_gangbandana",
+			-- "v_57_safari"
+		}
 	}
 }
 
