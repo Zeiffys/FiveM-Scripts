@@ -526,6 +526,17 @@ local scriptedint = {
 		}
 	},
 	{
+		-- v_int_22 - Ammu-Nation
+		coord = {
+			vector3(247.3716, -47.24516, 68.94099), vector3(843.2987, -1028.107, 27.19477), vector3(-1310.877, -392.0096, 35.69572),
+			vector3(-663.1717, -940.7581, 20.82915), vector3(-1114.845, 2693.81, 17.55406), vector3(-3167.296, 1084.71, 19.83866),
+			vector3(2568.834, 299.7881, 107.7348), vector3(-327.1706, 6079.257, 30.4547), vector3(1696.953, 3755.445, 33.70526)
+		},
+		props = {
+			"gunstorehooks"
+		}
+	},
+	{
 		-- v_int_24 - Franklin House 3671
 		coord = {vector3(3.199463, 529.7808, 169.6262)},
 		props = {
@@ -538,6 +549,54 @@ local scriptedint = {
 			-- "progress_tux",
 			-- "progress_flyer",
 			-- "progress_tshirt"
+		}
+	},
+	{
+		-- v_int_26 - Trevor Trailer
+		coord = {vector3(1972.747, 3818.127, 32.02555)},
+		props = {
+			-- "v_26_michael_stay1",
+			"v_26_trevor_helmet1",
+			-- "v_24_trevor_briefcase1"
+		}
+	},
+	{
+		-- v_int_26 - Trevor Trailer Tidy
+		coord = {vector3(1972.747, 3818.127, 32.02555)},
+		props = {
+			-- "v_26_michael_stay2",
+			"v_26_trevor_helmet2",
+			-- "v_24_trevor_briefcase2"
+		}
+	},
+	{
+		-- v_int_26 - Trevor Trailer Trash
+		coord = {vector3(1972.747, 3818.127, 32.02555)},
+		props = {
+			-- "v_26_michael_stay3",
+			"v_26_trevor_helmet3",
+			-- "v_24_trevor_briefcase3"
+		}
+	},
+	{
+		-- v_int_35 - Lester Factory with Interior
+		coord = {vector3(717.2994, -974.4271, 23.78865)},
+		props = {
+			-- "jewel_gasmasks",
+			-- "v_35_fireman",
+			-- "v_35_kitbag",
+			-- "v_35_body_armour",
+			-- "v_35_bigscore_prints",
+			-- "v_53_agency_blueprint",
+			-- "v_53_agency _overalls" -- do not remove the space, it should be so AND IT WORKS!!! I PERSONALLY CHECKED
+		}
+	},
+	{
+		-- v_int_40 - Pillbox Hill Medical Hospital Destroyed
+		coord = {vector3(311.2546, -592.4204, 42.32737)},
+		props = {
+			-- "hospitaldoorsanim",
+			"hospitaldoorsfixed"
 		}
 	},
 	{
@@ -571,6 +630,18 @@ local scriptedint = {
 		}
 	},
 	{
+		-- v_int_51 - Mid Clothes Shop
+		coord = {
+			vector3(425.2449, -805.3314, 28.31175), vector3(75.70789, -1393.818, 28.19675), vector3(-823.0248, -1074.298, 10.14872),
+			vector3(-1101.907, 2709.708, 17.92847), vector3(5.263491, 6513.293, 30.69846), vector3(1693.459, 4823.674, 40.88372),
+			vector3(1195.758, 2709.895, 37.04323)
+		},
+		props = {
+			-- "clotheslowhipster",
+			"clotheslowcheap"
+		}
+	},
+	{
 		-- v_int_57 - 1st Franklin House
 		coord = {vector3(-11.82915, -1437.688, 30.10579)},
 		props = {
@@ -578,6 +649,42 @@ local scriptedint = {
 			"v_57_franklin_left",
 			-- "v_57_gangbandana",
 			-- "v_57_safari"
+		}
+	},
+	{
+		-- v_int_60 - LS Airport Hanger
+		coord = {vector3(-955.8357, -2995.446, 12.95679)},
+		props = {
+			-- "hanger_blood_splat"
+		}
+	},
+	{
+		-- v_int_61 - Floyd House
+		coord = {vector3(-1153.183, -1518.348, 9.630823)},
+		props = {
+			"layer_debra_pic",
+			-- "layer_mess_a",
+			-- "layer_mess_b",
+			-- "layer_mess_c",
+			-- "layer_sextoys_a",
+			-- "layer_torture",
+			-- "layer_wade_shit",
+			-- "layer_whiskey",
+			"swap_clean_apt",
+			"swap_sofa_a",
+			-- "swap_sofa_b",
+			-- "swap_sofa_c",
+			-- "swap_mrjam_a",
+			-- "swap_mrjam_b",
+			-- "swap_mrjam_c",
+			-- "swap_wade_sofa_a",
+		}
+	},
+	{
+		-- v_int_73 - FIB Fire Escape
+		coord = {vector3(128.4159, -733.2078, 233.1522)},
+		props = {
+			"v_fib04_set_ah3a"
 		}
 	},
 	{
