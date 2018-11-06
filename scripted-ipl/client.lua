@@ -300,6 +300,40 @@ local scriptedipl = {
 	-- Grand Senora Desert RON Billboard: 2111.412, 3081.259, 54.985
 	"cs5_roads_ronoilgraffiti",
 
+	-- Prologue - North Yankton
+	--[[
+	"prologue01",
+	"prologue01c",
+	"prologue01d",
+	"prologue01e",
+	"prologue01f",
+	"prologue01g",
+	"prologue01h",
+	"prologue01i",
+	"prologue01j",
+	"prologue01k",
+	"prologue01z",
+	"prologue02",
+	"prologue03",
+	"prologue03b",
+	"prologue04",
+	"prologue04_cover",
+	"prologue04b",
+	"prologue05",
+	"prologue05b",
+	"prologue06",
+	"prologue06_int",
+	"prologue06_pannel",
+	"prologue06b",
+	"prologuerd",
+	"prologuerdb",
+	"prologue_lodlights",
+	"prologue_grv_torch", -- 3259.432, -4570.757, 118.072
+	"prologue03_grv_cov",
+	-- "prologue03_grv_dug",
+	-- "prologue03_grv_fun"
+	]]--
+
 
 
 	-- DLC's PART --
@@ -399,7 +433,15 @@ local scriptedipl = {
 	-- "gr_case10_bunkerclosed", -- -3058.714, 3329.19, 12.5844
 	-- "gr_case11_bunkerclosed", -- -3180.466, 1374.192, 19.9597
 
-	-- Heist Carrier: 3082.312 -4717.119 15.262
+	-- Gun Running Yacht: -1383.474, 6740.696, 8.971
+	"gr_heist_yacht2",
+	"gr_heist_yacht2_bar",
+	"gr_heist_yacht2_bedrm",
+	"gr_heist_yacht2_bridge",
+	"gr_heist_yacht2_enginrm",
+	"gr_heist_yacht2_lounge",
+
+	-- Heist Carrier: 3082.312, -4717.119, 15.262
 	-- "hei_carrier",
 	-- "hei_carrier_int1",
 	-- "hei_carrier_int2",
@@ -719,6 +761,9 @@ local scriptedint = {
 }
 
 Citizen.CreateThread(function()
+	-- Not required as FiveM does it for us.
+	-- LoadMpDlcMaps() -- Unload SP IPL's and load MP IPL's
+
 	for k, v in pairs(scriptedipl) do
 		if IsIplActive(v) then
 			-- Citizen.Trace(" *scripted-ipl: "..v.." already loaded.\n")
