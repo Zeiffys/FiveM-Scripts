@@ -256,12 +256,13 @@ local scriptedipl = {
 	-- "methtrailer_grp2", -- destroyed and burned
 	-- "methtrailer_grp3", -- destroyed
 
-	-- Stab City LostMC Trailers:
+	-- Stab City LostMC Trailers: 64.796, 3700.189, 39.755
 	"trailerparka_grp1", -- normal (loaded by default by game, if not loaded alternative)
 	-- "trailerparka_grp2", -- destroyed
 	"trailerparkb_grp1", -- normal (loaded by default by game, if not loaded alternative)
 	-- "trailerparkb_grp2", -- destroyed
-	"trailerparkc_grp1", -- normal (loaded by default by game, if not loaded alternative)
+	"trailerparkc_grp1", -- normal - light in window on (loaded by default by game, if not loaded alternative)
+	-- "hei_trailerparkc_grp1", -- normal - light in window off
 	-- "trailerparkc_grp2", -- destroyed
 	"trailerparkd_grp1", -- normal (loaded by default by game, if not loaded alternative)
 	-- "trailerparkd_grp2", -- destroyed
@@ -477,6 +478,10 @@ local scriptedipl = {
 	-- "imp_sm_15_cargarage_a",
 	-- "imp_sm_15_cargarage_b",
 	-- "imp_sm_15_cargarage_c",
+
+	-- Great Chaparral Grave: -281.360, 2837.767, 53.643
+	"lr_cs6_08_grave_open",
+	-- "lr_cs6_08_grave_closed"
 
 
 
