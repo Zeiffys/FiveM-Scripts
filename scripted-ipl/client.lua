@@ -534,8 +534,8 @@ local scriptedint = {
 			-- "csr_aftermissionb",
 			"csr_beforemission",
 			-- "csr_inmission",
-			"shutter_closed",
-			-- "shutter_open"
+			-- "shutter_closed",
+			"shutter_open"
 		}
 	},
 	{
