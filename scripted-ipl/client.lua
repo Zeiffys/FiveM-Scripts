@@ -825,7 +825,7 @@ local scriptedint = {
 		}
 	},
 	{
-		-- int_mp_h_0X - MP Apartment
+		-- int_mp_h_0X - mpapartment
 		coord = {
 			vector3(-787.7805, 334.9232, 215.8384), vector3(-773.2258, 322.8252, 194.8862), vector3(-787.7805, 334.9232, 186.1134)
 		},
@@ -842,7 +842,7 @@ local scriptedint = {
 		}
 	},
 	{
-		-- int_mp_stilts_a - MP Apartment
+		-- int_mp_stilts_a - mpapartment
 		coord = {
 			vector3(372.6725, 405.5155, 144.4997), vector3(122.5349, 542.5076, 182.8967), vector3(-855.0377, 673.7045, 151.4525),
 			vector3(-573.0324, 643.7613, 144.4316), vector3(-1286.362, 431.7878, 96.49426), vector3(-746.6974, 576.9874, 144.86)
@@ -861,7 +861,7 @@ local scriptedint = {
 		}
 	},
 	{
-		-- int_mp_stilts_b - MP Apartment
+		-- int_mp_stilts_b - mpapartment
 		coord = {
 			vector3(328.5579, 425.9027, 147.9707), vector3(-166.4324, 481.537, 136.2436),
 			vector3(-773.3615, 609.1497, 142.7305), vector3(-667.5856, 582.3726, 143.9697)
@@ -879,7 +879,7 @@ local scriptedint = {
 		}
 	},
 	{
-		-- int_01_ba - MP Battle - After Hours
+		-- int_01_ba - mpbattle
 		coord = {vector3(-1604.664, -3012.583, -80.0)},
 		props = {
 			--[[
@@ -948,7 +948,7 @@ local scriptedint = {
 		}
 	},
 	{
-		-- int_02_ba - MP Battle - After Hours
+		-- int_02_ba - mpbattle
 		coord = {vector3(-1505.782, -3012.587, -80.0)},
 		props = {
 			--[[
@@ -1021,7 +1021,7 @@ local scriptedint = {
 		}
 	},
 	{
-		-- int_03_ba - MP Battle - After Hours
+		-- int_03_ba - mpbattle
 		coord = {vector3(-1421.015, -3012.587, -80.0)},
 		props = {
 			--[[
@@ -1064,6 +1064,256 @@ local scriptedint = {
 			"int_03_ba_light_rig8",
 			"int_03_ba_light_rig9"
 			]]
+		}
+	},
+	{
+		-- biker_dlc_int_01 - mpbiker
+		coord = {vector3(1102.477, -3156.162, -37.773)},
+		props = {
+			-- "cash_stash1",
+			-- "cash_stash2",
+			-- "cash_stash3",
+			-- "coke_stash1",
+			-- "coke_stash2",
+			-- "coke_stash3",
+			-- "counterfeit_stash1",
+			-- "counterfeit_stash2",
+			-- "counterfeit_stash3",
+			"decorative_01",
+			-- "decorative_02",
+			"furnishings_01",
+			-- "furnishings_02",
+			-- "gun_locker",
+			"no_gun_locker",
+			-- "id_stash1",
+			-- "id_stash2",
+			-- "id_stash3",
+			-- "meth_stash1",
+			-- "meth_stash2",
+			-- "meth_stash3",
+			-- "mod_booth",
+			"no_mod_booth",
+			-- "mural_01",
+			-- "mural_02",
+			-- "mural_03",
+			-- "mural_04",
+			-- "mural_05",
+			-- "mural_06",
+			-- "mural_07",
+			-- "mural_08",
+			-- "mural_09",
+			"walls_01",
+			-- "walls_02",
+			-- "weed_stash1",
+			-- "weed_stash2",
+			-- "weed_stash3"
+		}
+	},
+	{
+		-- biker_dlc_int_02 - mpbiker
+		coord = {vector3(1005.861, -3156.162, -39.90727)},
+		props = {
+			-- "cash_small",
+			-- "cash_medium",
+			-- "cash_large",
+			-- "coke_small",
+			-- "coke_medium",
+			-- "coke_large",
+			-- "counterfeit_small",
+			-- "counterfeit_medium",
+			-- "counterfeit_large",
+			"decorative_01",
+			-- "decorative_02",
+			"furnishings_01",
+			-- "furnishings_02",
+			-- "id_small",
+			-- "id_medium",
+			-- "id_large",
+			"lower_walls_default",
+			-- "meth_small",
+			-- "meth_medium",
+			-- "meth_large",
+			-- "mod_booth",
+			"no_mod_booth",
+			-- "mural_01",
+			-- "mural_02",
+			-- "mural_03",
+			-- "mural_04",
+			-- "mural_05",
+			-- "mural_06",
+			-- "mural_07",
+			-- "mural_08",
+			-- "mural_09",
+			-- "gun_locker",
+			"no_gun_locker",
+			"walls_01",
+			-- "walls_01",
+			-- "weed_small",
+			-- "weed_medium",
+			-- "weed_large"
+		}
+	},
+	{
+		-- biker_dlc_int_ware01 - mpbiker
+		coord = {vector3(1009.545, -3196.597, -39.99353)},
+		props = {
+			-- "meth_lab_basic",
+			-- "meth_lab_empty",
+			-- "meth_lab_production",
+			"meth_lab_security_high",
+			"meth_lab_setup",
+			"meth_lab_upgrade"
+		}
+	},
+	{
+		-- biker_dlc_int_ware02 - mpbiker
+		coord = {vector3(1059.028, -3201.89, -39.99353)},
+		props = {
+			-- "light_growtha_stage23_standard",
+			"light_growtha_stage23_upgrade",
+			-- "light_growthb_stage23_standard",
+			"light_growthb_stage23_upgrade",
+			-- "light_growthc_stage23_standard",
+			"light_growthc_stage23_upgrade",
+			-- "light_growthd_stage23_standard",
+			"light_growthd_stage23_upgrade",
+			-- "light_growthe_stage23_standard",
+			"light_growthe_stage23_upgrade",
+			-- "light_growthf_stage23_standard",
+			"light_growthf_stage23_upgrade",
+			-- "light_growthg_stage23_standard",
+			"light_growthg_stage23_upgrade",
+			-- "light_growthh_stage23_standard",
+			"light_growthh_stage23_upgrade",
+			-- "light_growthi_stage23_standard",
+			"light_growthi_stage23_upgrade",
+			-- "weed_growtha_stage1",
+			-- "weed_growtha_stage2",
+			"weed_growtha_stage3",
+			-- "weed_growthb_stage1",
+			-- "weed_growthb_stage2",
+			"weed_growthb_stage3",
+			-- "weed_growthc_stage1",
+			-- "weed_growthc_stage2",
+			"weed_growthc_stage3",
+			-- "weed_growthd_stage1",
+			-- "weed_growthd_stage2",
+			"weed_growthd_stage3",
+			-- "weed_growthe_stage1",
+			-- "weed_growthe_stage2",
+			"weed_growthe_stage3",
+			-- "weed_growthf_stage1",
+			-- "weed_growthf_stage2",
+			"weed_growthf_stage3",
+			-- "weed_growthg_stage1",
+			-- "weed_growthg_stage2",
+			"weed_growthg_stage3",
+			-- "weed_growthh_stage1",
+			-- "weed_growthh_stage2",
+			"weed_growthh_stage3",
+			-- "weed_growthi_stage1",
+			-- "weed_growthi_stage2",
+			"weed_growthi_stage3",
+			-- "weed_hosea",
+			-- "weed_hoseb",
+			-- "weed_hosec",
+			-- "weed_hosed",
+			-- "weed_hosee",
+			-- "weed_hosef",
+			-- "weed_hoseg",
+			-- "weed_hoseh",
+			-- "weed_hosei",
+			"weed_chairs",
+			"weed_drying",
+			-- "weed_standard_equip",
+			"weed_upgrade_equip",
+			"weed_production",
+			-- "weed_low_security",
+			"weed_security_upgrade",
+			"weed_set_up"
+		}
+	},
+	{
+		-- biker_dlc_int_ware03 - mpbiker
+		coord = {vector3(1093.581, -3196.597, -39.99353)},
+		props = {
+			-- "coke_cut_01",
+			-- "coke_cut_02",
+			-- "coke_cut_03",
+			-- "coke_cut_04",
+			-- "coke_cut_05",
+			-- "coke_press_basic",
+			"coke_press_upgrade",
+			-- "equipment_basic",
+			"equipment_upgrade",
+			-- "production_basic",
+			"production_upgrade",
+			-- "security_low",
+			"security_high",
+			"set_up",
+			-- "table_equipment",
+			"table_equipment_upgrade"
+		}
+	},
+	{
+		-- biker_dlc_int_ware04 - mpbiker
+		coord = {vector3(1124.734, -3196.597, -39.99353)},
+		props = {
+			-- "counterfeit_cashpile10a",
+			-- "counterfeit_cashpile10b",
+			-- "counterfeit_cashpile10c",
+			-- "counterfeit_cashpile10d",
+			-- "counterfeit_cashpile20a",
+			-- "counterfeit_cashpile20b",
+			-- "counterfeit_cashpile20c",
+			-- "counterfeit_cashpile20d",
+			-- "counterfeit_cashpile100a",
+			-- "counterfeit_cashpile100b",
+			-- "counterfeit_cashpile100c",
+			-- "counterfeit_cashpile100d",
+			"counterfeit_security",
+			-- "counterfeit_low_security",
+			"counterfeit_setup",
+			-- "counterfeit_standard_equip",
+			-- "counterfeit_standard_equip_no_prod",
+			-- "counterfeit_upgrade_equip",
+			"counterfeit_upgrade_equip_no_prod",
+			"dryera_off",
+			-- "dryera_on",
+			-- "dryera_open",
+			"dryerb_off",
+			-- "dryerb_on",
+			-- "dryerb_open",
+			"dryerc_off",
+			-- "dryerc_on",
+			-- "dryerc_open",
+			"dryerd_off",
+			-- "dryerd_on",
+			-- "dryerd_open",
+			"money_cutter",
+			"special_chairs"
+		}
+	},
+	{
+		-- biker_dlc_int_ware05 - mpbiker
+		coord = {vector3(1165.001, -3196.597, -39.99353)},
+		props = {
+			"chair01",
+			"chair02",
+			"chair03",
+			"chair04",
+			"chair05",
+			"chair06",
+			"chair07",
+			-- "clutter",
+			-- "equipment_basic",
+			"equipment_upgrade",
+			-- "interior_basic",
+			"interior_upgrade",
+			-- "production",
+			-- "security_low",
+			"security_high",
+			"set_up",
 		}
 	},
 
