@@ -342,30 +342,33 @@ local scriptedipl = {
 
 
 	-- Apartments
-	-- "apa_v_mp_h_01_a", -- Modern 1 Apartment: -786.866, 315.764, 217.638
-	-- "apa_v_mp_h_01_c", -- Modern 2 Apartment: -786.956, 315.622, 187.913
-	-- "apa_v_mp_h_01_b", -- Modern 3 Apartment: -774.012, 342.042, 196.686
-	-- "apa_v_mp_h_02_a", -- Mody 1 Apartment: -787.074, 315.819, 217.638
-	-- "apa_v_mp_h_02_c", -- Mody 2 Apartment: -786.819, 315.563, 187.913
-	-- "apa_v_mp_h_02_b", -- Mody 3 Apartment: -774.138, 342.031, 196.686
-	-- "apa_v_mp_h_03_a", -- Vibrant 1 Apartment: -786.624, 315.617, 217.638
-	-- "apa_v_mp_h_03_c", -- Vibrant 2 Apartment: -786.958, 315.797, 187.913
-	-- "apa_v_mp_h_03_b", -- Vibrant 3 Apartment: -774.022, 342.171, 196.686
-	-- "apa_v_mp_h_04_a", -- Sharp 1 Apartment: -787.090, 315.703, 217.638
-	-- "apa_v_mp_h_04_c", -- Sharp 2 Apartment: -787.015, 315.707, 187.913
-	-- "apa_v_mp_h_04_b", -- Sharp 3 Apartment: -773.897, 342.152, 196.686
-	-- "apa_v_mp_h_05_a", -- Monochrome 1 Apartment: -786.988, 315.739, 217.638
-	-- "apa_v_mp_h_05_c", -- Monochrome 2 Apartment: -786.880, 315.663, 187.913
-	-- "apa_v_mp_h_05_b", -- Monochrome 3 Apartment: -774.067, 342.077, 196.686
-	-- "apa_v_mp_h_06_a", -- Seductive 1 Apartment: -787.142, 315.694, 217.638
-	-- "apa_v_mp_h_06_c", -- Seductive 2 Apartment: -787.096, 315.81, 187.913
-	-- "apa_v_mp_h_06_b", -- Seductive 3 Apartment: -773.955, 341.989, 196.686
-	-- "apa_v_mp_h_07_a", -- Regal 1 Apartment: -787.029, 315.711, 217.638
-	-- "apa_v_mp_h_07_c", -- Regal 2 Apartment: -787.057, 315.656, 187.913
-	-- "apa_v_mp_h_07_b", -- Regal 3 Apartment: -774.010, 342.096, 196.686
-	-- "apa_v_mp_h_08_a", -- Aqua 1 Apartment: -786.946, 315.565, 217.638
-	-- "apa_v_mp_h_08_c", -- Aqua 2 Apartment: -786.975, 315.723, 187.913
-	-- "apa_v_mp_h_08_b", -- Aqua 3 Apartment: -774.034, 342.029, 196.686
+	-- #1: -787.780, 334.923, 215.838
+	"apa_v_mp_h_01_a", -- Modern
+	-- "apa_v_mp_h_02_a", -- Mody
+	-- "apa_v_mp_h_03_a", -- Vibrant
+	-- "apa_v_mp_h_04_a", -- Sharp
+	-- "apa_v_mp_h_05_a", -- Monochrome
+	-- "apa_v_mp_h_06_a", -- Seductive
+	-- "apa_v_mp_h_07_a", -- Regal
+	-- "apa_v_mp_h_08_a", -- Aqua
+	-- #2: -773.225, 322.825, 194.886
+	"apa_v_mp_h_01_b", -- Modern 
+	-- "apa_v_mp_h_02_b", -- Mody
+	-- "apa_v_mp_h_03_b", -- Vibrant
+	-- "apa_v_mp_h_04_b", -- Sharp
+	-- "apa_v_mp_h_05_b", -- Monochrome
+	-- "apa_v_mp_h_06_b", -- Seductive
+	-- "apa_v_mp_h_07_b", -- Regal
+	-- "apa_v_mp_h_08_b", -- Aqua
+	-- #3: -787.7805, 334.9232, 186.1134
+	"apa_v_mp_h_01_c", -- Modern
+	-- "apa_v_mp_h_02_c", -- Mody
+	-- "apa_v_mp_h_03_c", -- Vibrant
+	-- "apa_v_mp_h_04_c", -- Sharp
+	-- "apa_v_mp_h_05_c", -- Monochrome
+	-- "apa_v_mp_h_06_c", -- Seductive
+	-- "apa_v_mp_h_07_c", -- Regal
+	-- "apa_v_mp_h_08_c", -- Aqua
 
 	-- La-Mesa Autoshop Doors: 975.190, -1828.765, 31.184
 	"bkr_bi_id1_23_door",
@@ -751,6 +754,60 @@ local scriptedint = {
 			"v_fib03_set_ah3a",
 			"v_fib03_set_ah3b",
 			"v_fib03_door_light"
+		}
+	},
+	{
+		-- int_mp_h_0X - MP Apartment
+		coord = {
+			vector3(-787.7805, 334.9232, 215.8384), vector3(-773.2258, 322.8252, 194.8862), vector3(-787.7805, 334.9232, 186.1134)
+		},
+		props = {
+			"apart_hi_booze_a",
+			-- "apart_hi_booze_b",
+			-- "apart_hi_booze_c",
+			"apart_hi_smokes_a",
+			-- "apart_hi_smokes_b",
+			-- "apart_hi_smokes_c",
+			"apart_hi_strip_a",
+			-- "apart_hi_strip_b",
+			-- "apart_hi_strip_c"
+		}
+	},
+	{
+		-- int_mp_stilts_a - MP Apartment
+		coord = {
+			vector3(372.6725, 405.5155, 144.4997), vector3(122.5349, 542.5076, 182.8967), vector3(-855.0377, 673.7045, 151.4525),
+			vector3(-573.0324, 643.7613, 144.4316), vector3(-1286.362, 431.7878, 96.49426), vector3(-746.6974, 576.9874, 144.86)
+		},
+		props = {
+			"apart_hi_booze_a",
+			-- "apart_hi_booze_b",
+			-- "apart_hi_booze_c",
+			"apart_hi_smokes_a",
+			-- "apart_hi_smokes_b",
+			-- "apart_hi_smokes_c",
+			"apart_hi_strip_a",
+			-- "apart_hi_strip_b",
+			-- "apart_hi_strip_c",
+			"stilts_kitchen_window"
+		}
+	},
+	{
+		-- int_mp_stilts_b - MP Apartment
+		coord = {
+			vector3(328.5579, 425.9027, 147.9707), vector3(-166.4324, 481.537, 136.2436),
+			vector3(-773.3615, 609.1497, 142.7305), vector3(-667.5856, 582.3726, 143.9697)
+		},
+		props = {
+			"apart_hi_booze_a",
+			-- "apart_hi_booze_b",
+			-- "apart_hi_booze_c",
+			"apart_hi_smokes_a",
+			-- "apart_hi_smokes_b",
+			-- "apart_hi_smokes_c",
+			"apart_hi_strip_a",
+			-- "apart_hi_strip_b",
+			-- "apart_hi_strip_c"
 		}
 	},
 
