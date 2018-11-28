@@ -1,28 +1,14 @@
 Citizen.CreateThread(function()
-	local mx = 9800
-	local mn = tonumber(("%.0f"):format(mx * 0.1120))
-	local useKmh = true
-
 	function math.round(number, dec)
 		dec = dec or 0
 		return tonumber(("%.".. dec .."f"):format(number))
 	end
 
-	local function GetVehicleRpmFloat(vehicle)
+	local function GetVehicleRpmInt(vehicle, mno, mx)
 		if IsEntityAVehicle(vehicle) then
 			if GetIsVehicleEngineRunning(vehicle) then
 				local rpm = GetVehicleCurrentRpm(vehicle)
-				local rpmf = math.max(0.0, rpm - (0.1244 - (0.1244 * rpm)))
-				return rpmf
-			end
-		end
-		return 0.0
-	end
-
-	local function GetVehicleRpmInt(vehicle, mx)
-		if IsEntityAVehicle(vehicle) then
-			if GetIsVehicleEngineRunning(vehicle) then
-				local rpmf = GetVehicleRpmFloat(vehicle)
+				local rpmf = math.max(0.0, rpm - (mno - (mno * rpm)))
 				local rpmi = math.round(rpmf * mx)
 				return rpmi
 			end
@@ -31,42 +17,43 @@ Citizen.CreateThread(function()
 	end
 
 	local models = {
-		["DEFAULT"] = 9800,
-		["150gt"] = 7800,
-		["blista"] = 6750,
-		["blistata"] = 7850,
-		["comet99"] = 8050,
-		["elegypace"] = 7900,
-		["elegypolice"] = 7900,
-		["elegyrh5"] = 7900,
-		["euros"] = 8850,
-		["flash"] = 7900,
-		["futo3"] = 7900,
-		["jester5"] = 7850,
-		["kurumata"] = 11000,
-		["savestra"] = 7700,
-		["sigma2"] = 8950,
-		["zr"] = 7500,
-		["rebel01"] = 6700,
-		["rebel02"] = 6700,
-		["riata"] = 5000,
-		["rancherx"] = 6750,
-		["fugitive"] = 7000,
-		["comet3"] = 8100,
-		["futo"] = 7900,
-		["comet5"] = 8800,
-		["feltzer"] = 6600,
-		["michelli"] = 7700,
-		["markii"] = 6950,
-		["rloader"] = 6600,
-		["stratum"] = 6850,
-		["schafter"] = 6700,
-		["elegy2"] = 8900,
-		["entity2"] = 8950,
-		["boxville5"] = 2225,
-		["cavcade"] = 5550,
-		["dominato"] = 7800,
-		["sentinel2"] = 8900,
+		["DEFAULT"] = {9800},
+		["150gt"] = {7700, 0.1526},
+		["blista"] = {6750, 0.1420},
+		["blistata"] = {7900, 0.1230},
+		["comet99"] = {8050},
+		["elegypace"] = {7875, 0.0930},
+		["elegypolice"] = {7875, 0.0930},
+		["elegyrh5"] = {7875, 0.0930},
+		["euros"] = {8900, 0.1100},
+		["flash"] = {7900, 0.1280},
+		["futo3"] = {7900, 0.1230},
+		["jester5"] = {7850},
+		["kurumata"] = {11000},
+		["savestra"] = {7700},
+		["sigma2"] = {8950},
+		["zr"] = {7500},
+		["rebel01"] = {6700},
+		["rebel02"] = {6700},
+		["riata"] = {5000},
+		["rancherx"] = {6750},
+		["fugitive"] = {7000},
+		["comet3"] = {8100, 0.0800},
+		["futo"] = {7900},
+		["comet5"] = {8800, 0.0848},
+		["feltzer"] = {6600},
+		["michelli"] = {7700},
+		["markii"] = {6950},
+		["rloader"] = {6600},
+		["stratum"] = {6850},
+		["schafter"] = {6700},
+		["elegy2"] = {8900},
+		["entity2"] = {8950},
+		["boxville5"] = {2225},
+		["cavcade"] = {5550},
+		["dominato"] = {7800},
+		["sentinel2"] = {8900},
+		["deluxo"] = {6900, 0.1375}
 	}
 
 	local classes = {
@@ -103,13 +90,14 @@ Citizen.CreateThread(function()
 			local vehicle = GetVehiclePedIsIn(ped, false)
 			local model = GetDisplayNameFromVehicleModel(GetEntityModel(vehicle)):lower()
 			local class = GetVehicleClass(vehicle)
-			local mx = models[model] or classes[class]
-			local mn = math.round(mx * 0.1005)
+			local mx = models[model] and models[model][1] or classes[class]
+			local mno = models[model] and models[model][2] or 0.1244
+			local mnf = math.round(0.2 - (mno - (mno * 0.2)), 4)
+			local mn = math.round(mx * mnf)
 
 			-- local turbo = GetVehicleTurboPressure(vehicle) -- (turbo > 0 and math.round(turbo*100) or 0) .. "%"
 			local gear = GetVehicleCurrentGear(vehicle)
-			local rpmf = math.round(GetVehicleRpmFloat(vehicle), 4)
-			local rpmi = GetVehicleRpmInt(vehicle, mx)
+			local rpmi = GetVehicleRpmInt(vehicle, mno, mx)
 			local physspeed = GetEntitySpeed(vehicle)
 			local dashspeed = GetVehicleDashboardSpeed(vehicle)
 			local speed = ((class == 13 or class == 15 or class == 16 or class == 21 or dashspeed == 0.00) and physspeed or dashspeed) * (useKmh and 3.6 or 2.2369362920544)
@@ -127,7 +115,7 @@ Citizen.CreateThread(function()
 			else
 				if rpmi == mx then
 					rpmi = mx + math.random(-150, 150)
-				elseif rpmf == 0.1005 then
+				elseif rpmi == mn then
 					rpmi = mn + math.random(-50, 50)
 				end
 			end
