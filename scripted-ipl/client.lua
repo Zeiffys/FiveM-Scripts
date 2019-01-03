@@ -622,9 +622,7 @@ local scriptedint = {
 			vector3(300.633, -997.4288, -100.0), vector3(-13.08014, -593.6168, 93.02542), vector3(-32.17249, -579.0183, 82.90739), vector3(-282.3038, -954.7815, 85.30347), vector3(-260.882, -953.5573, 70.0239),
 			vector3(-475.0457, -706.6808, 46.19836), vector3(-460.6133, -691.5562, 69.87947), vector3(-892.296, -434.4147, 88.25368), vector3(-904.5669, -377.0005, 78.27306), vector3(-909.1017, -438.1902, 114.3997),
 			vector3(-925.5497, -374.2203, 102.2329), vector3(-889.303, -451.7751, 119.327), vector3(-791.2941, 338.071, 200.4135), vector3(-764.8131, 319.1851, 216.0503), vector3(-791.7613, 338.4633, 152.7941),
-			vector3(-764.7225, 319.1851, 169.5963), vector3(-613.5404, 63.04871, 100.8196), vector3(-587.8259, 44.2688, 86.4187), vector3(-1468.021, -529.9438, 62.34918), vector3(-1468.021, -529.9438, 49.72156),
-			vector3(-1462.281, -539.6276, 72.4443), vector3(-914.9026, -374.8731, 112.6748), vector3(-609.5669, 51.2821, 96.6002), vector3(-778.5061, 331.3160, 210.3972), vector3(-22.6135, -590.1432, 78.4309),
-			vector3(-609.5669, 51.2821, 183.9808)
+			vector3(-764.7225, 319.1851, 169.5963), vector3(-613.5404, 63.04871, 100.8196), vector3(-587.8259, 44.2688, 86.4187), vector3(-1468.021, -529.9438, 62.34918), vector3(-1468.021, -529.9438, 49.72156)
 		},
 		props = {
 			"apart_hi_booze_a",
@@ -836,7 +834,7 @@ local scriptedint = {
 			"apart_hi_smokes_a",
 			-- "apart_hi_smokes_b",
 			-- "apart_hi_smokes_c",
-			"apart_hi_strip_a",
+			-- "apart_hi_strip_a",
 			-- "apart_hi_strip_b",
 			-- "apart_hi_strip_c"
 		}
@@ -854,7 +852,7 @@ local scriptedint = {
 			"apart_hi_smokes_a",
 			-- "apart_hi_smokes_b",
 			-- "apart_hi_smokes_c",
-			"apart_hi_strip_a",
+			-- "apart_hi_strip_a",
 			-- "apart_hi_strip_b",
 			-- "apart_hi_strip_c",
 			"stilts_kitchen_window"
@@ -873,7 +871,7 @@ local scriptedint = {
 			"apart_hi_smokes_a",
 			-- "apart_hi_smokes_b",
 			-- "apart_hi_smokes_c",
-			"apart_hi_strip_a",
+			-- "apart_hi_strip_a",
 			-- "apart_hi_strip_b",
 			-- "apart_hi_strip_c"
 		}
@@ -1316,6 +1314,24 @@ local scriptedint = {
 			"set_up",
 		}
 	},
+	{
+		-- int_mp_apt_h_01 - mpbusiness	
+		coord = {
+			vector3(-1462.281, -539.6276, 72.4443), vector3(-914.9026, -374.8731, 112.6748), vector3(-609.5669, 51.2821, 96.6002),
+			vector3(-778.5061, 331.3160, 210.3972), vector3(-22.6135, -590.1432, 78.4309), vector3(-609.5669, 51.2821, 183.9808)
+		},
+		props = {
+			"apart_hi_booze_a",
+			-- "apart_hi_booze_b",
+			-- "apart_hi_booze_c",
+			"apart_hi_smokes_a",
+			-- "apart_hi_smokes_b",
+			-- "apart_hi_smokes_c",
+			-- "apart_hi_strip_a",
+			-- "apart_hi_strip_b",
+			-- "apart_hi_strip_c"
+		}
+	},
 
 	{
 		coord = {vector3(975.0, -3000.0, -40.0)},
@@ -1378,7 +1394,7 @@ end)
 
 AddEventHandler("onResourceStop", function(resource)
 	if resource == GetCurrentResourceName() then
-		--[[for k, v in pairs(scriptedipl) do
+		for k, v in pairs(scriptedipl) do
 			if IsIplActive(v) then
 				RemoveIpl(v)
 				-- Citizen.Wait(0)
@@ -1390,7 +1406,7 @@ AddEventHandler("onResourceStop", function(resource)
 			else
 				-- Citizen.Trace(" *scripted-ipl: "..v.." already unloaded.\n")
 			end
-		end]]
+		end
 
 		for k, v in pairs(scriptedint) do
 			for k, c in pairs(v.coord) do
