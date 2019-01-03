@@ -1,4 +1,8 @@
 local scriptedipl = {
+	-- Airport
+	"ap1_03_bbrd_dcl", -- Billboard - Au Naturel: -865.793 -2274.258 26.158
+	"ap1_04_triaf01", -- Triathlon Stuff: -1276.876 -2032.937 1.484
+
 	-- Pillnox Hill Tunnel Hole: 26.854, -619.074, 31.628
 	"v_tunnel_hole",
 	"dt1_03_gr_closed", -- hole fence cover
@@ -124,6 +128,8 @@ local scriptedipl = {
 
 	-- Rockford Hills Michael House: 
 	"solomon5noshow", -- Trash in garage: -807.252, 162.186, 71.541
+	-- "bh1_48_killed_michael", -- For sale sing: -849.037 164.141 65.559
+	"yogagame", -- Yoga props: -789.786 185.204 71.961
 
 	-- Little Seoul Carwash: -699.687, -933.264, 19.013
 	"kt_carwash",
@@ -220,6 +226,11 @@ local scriptedipl = {
 	"cs1_02_cf_onmission3",
 	"cs1_02_cf_onmission4",
 
+	-- Paleto Bay Gas Station: -93.630 6426.240 31.430
+	-- "gasparticle_grp2", -- Fire
+	"gasstation_ipl_group1", -- normal
+	-- "gasstation_ipl_group2", -- destroyed
+
 	-- Great Ocean Highway Paddle's: -1816.983, 4701.271, 57.001
 	"mg-flight school 5",
 
@@ -300,6 +311,9 @@ local scriptedipl = {
 
 	-- Grand Senora Desert RON Billboard: 2111.412, 3081.259, 54.985
 	"cs5_roads_ronoilgraffiti",
+
+	-- Great Chaparral Baytree Canyon Rd - Chairs: -125.736 1923.010 196.3497
+	"cs6_06_chairs",
 
 	-- Prologue - North Yankton
 	--[[
@@ -437,6 +451,14 @@ local scriptedipl = {
 	"ba_mpbattleipl_strm_0",
 	"ba_sm_boat_window",
 	]]
+
+	-- Arena War --[[ There is no way to test in FiveM ]]
+	--[[
+	"xs_arena_banners_ipl",
+	"xs_mpchristmasbanners",
+	"xs_mpchristmasbanners_strm_0",
+	]]
+	
 
 	-- La-Mesa Autoshop Doors: 975.190, -1828.765, 31.184
 	"bkr_bi_id1_23_door",
