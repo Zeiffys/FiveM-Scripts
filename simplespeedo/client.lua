@@ -18,6 +18,7 @@ Citizen.CreateThread(function()
 
 	local models = {
 		["DEFAULT"] = {9800},
+		["ardent"] = {10000},
 		["150gt"] = {7700, 0.1526},
 		["blista"] = {6750, 0.1420},
 		["blistata"] = {7900, 0.1230},
@@ -53,7 +54,8 @@ Citizen.CreateThread(function()
 		["cavcade"] = {5550},
 		["dominato"] = {7800},
 		["sentinel2"] = {8900},
-		["deluxo"] = {6900, 0.1375}
+		["deluxo"] = {6900, 0.1375},
+		["930mnc"] = {6800}
 	}
 
 	local classes = {
@@ -95,7 +97,7 @@ Citizen.CreateThread(function()
 			local mnf = math.round(0.2 - (mno - (mno * 0.2)), 4)
 			local mn = math.round(mx * mnf)
 
-			-- local turbo = GetVehicleTurboPressure(vehicle) -- (turbo > 0 and math.round(turbo*100) or 0) .. "%"
+			local turbo = IsToggleModOn(vehicle, 18) and math.round(((GetVehicleTurboPressure(vehicle) + 1) / 2) * 9) or 0 -- (turbo > 0 and math.round(turbo*100) or 0) .. "%"
 			local gear = GetVehicleCurrentGear(vehicle)
 			local rpmi = GetVehicleRpmInt(vehicle, mno, mx)
 			local physspeed = GetEntitySpeed(vehicle)
@@ -125,8 +127,8 @@ Citizen.CreateThread(function()
 			SetTextDropShadow()
 			SetTextCentre(true)
 			BeginTextCommandDisplayText("STRING")
-			AddTextComponentSubstringPlayerName(("%04d~n~%03.0f %s"):format(rpmi, speed, gear, model))
-			EndTextCommandDisplayText(0.987 - safezone, 0.8222222222222222)
+			AddTextComponentSubstringPlayerName(("~HUD_COLOUR_WAYPOINT~%s~s~  %03.0f~n~~HUD_COLOUR_WAYPOINT~%01d~s~ %04d"):format(gear, speed, turbo, rpmi, model))
+			EndTextCommandDisplayText(0.984375 - safezone, 0.8291666666666667 - safezone)
 		end
 
 		Citizen.Wait(0)
