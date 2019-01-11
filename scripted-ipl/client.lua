@@ -639,14 +639,37 @@ local scriptedint = {
 		}
 	},
 	{
-		-- v_int_17 - Apartment Mid Spaz
-		coord = {vector3(342.8157, -997.4288, -100.0), vector3(575.0, 4750.0, -60.0)},
+		-- v_int_16 - Studio Lo
+		coord = {vector3(260.3297, -997.4288, -100.0), vector3(600.0, 4750.0, -60.0)},
 		props = {
-			"apart_mid_strip_c"
+			"studio_lo_booze_a",
+			-- "studio_lo_booze_b",
+			-- "studio_lo_booze_c",
+			"studio_lo_smoke_a",
+			-- "studio_lo_smoke_b",
+			-- "studio_lo_smoke_c",
+			-- "studio_lo_strip_a",
+			-- "studio_lo_strip_b",
+			-- "studio_lo_strip_c"
 		}
 	},
 	{
-		-- v_int_17 - Apartment High
+		-- v_int_16 - Apartment Mid Spaz
+		coord = {vector3(342.8157, -997.4288, -100.0), vector3(575.0, 4750.0, -60.0)},
+		props = {
+			"apart_mid_booze_a",
+			-- "apart_mid_booze_b",
+			-- "apart_mid_booze_c",
+			"apart_mid_smoke_a",
+			-- "apart_mid_smoke_b",
+			-- "apart_mid_smoke_c",
+			-- "apart_mid_strip_a",
+			-- "apart_mid_strip_b",
+			-- "apart_mid_strip_c"
+		}
+	},
+	{
+		-- v_int_16 - Apartment High
 		coord = {
 			vector3(300.633, -997.4288, -100.0), vector3(-13.08014, -593.6168, 93.02542), vector3(-32.17249, -579.0183, 82.90739), vector3(-282.3038, -954.7815, 85.30347), vector3(-260.882, -953.5573, 70.0239),
 			vector3(-475.0457, -706.6808, 46.19836), vector3(-460.6133, -691.5562, 69.87947), vector3(-892.296, -434.4147, 88.25368), vector3(-904.5669, -377.0005, 78.27306), vector3(-909.1017, -438.1902, 114.3997),
