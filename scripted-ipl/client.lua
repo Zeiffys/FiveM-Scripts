@@ -459,13 +459,13 @@ local scriptedipl = {
 	"ba_mpbattleipl_strm_0", -- Adds props (posters, keypads) near to the clubs (loaded by default by game)
 	-- "ba_sm_boat_window", -- Blinds for the window on the yacht: -2090.602, -1023.805, 9.836
 
-	-- Arena War --[[ There is no way to test in FiveM ]]
-	--[[
-	"xs_arena_banners_ipl",
-	"xs_mpchristmasbanners",
-	"xs_mpchristmasbanners_strm_0",
-	]]
-	
+	-- Arena War 
+	"xs_arena_banners_ipl", -- Adds banners to the Maze Bank Arena: -265.247, -1898.195, 27.755
+	-- interiors/arena (not loaded by default by game)
+	"xs_arena_interior",
+	"xs_arena_interior_mod",
+	"xs_arena_interior_mod_2",
+	"xs_arena_interior_vip",
 
 	-- La-Mesa Autoshop Doors: 975.190, -1828.765, 31.184
 	"bkr_bi_id1_23_door",
