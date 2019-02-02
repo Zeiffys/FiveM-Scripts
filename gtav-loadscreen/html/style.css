@@ -87,10 +87,10 @@ body {
 }
 
 .newsblock-banner.custom {
-	/*background-image: url(https://media.rockstargames.com/rockstargames-newsite/uploads/36173bb36b7cc02ff5a0e002243a6f75694f8d5b.jpg);*/
-	/*background-size: cover;*/
-	background-image: url(images/fivem.svg);
-	background-size: 50%;
+	background-image: url(https://media.rockstargames.com/rockstargames-newsite/uploads/36173bb36b7cc02ff5a0e002243a6f75694f8d5b.jpg);
+	background-size: cover;
+	/*background-image: url(images/fivem.svg);*/
+	/*background-size: 50%;*/
 }
 
 .newsblock-content {
