@@ -1,0 +1,154 @@
+@import url("fonts/ChaletLondonNineteenSixty.css");
+
+* {
+	outline: 0;
+	outline-offset: 0;
+	text-decoration: none;
+	-webkit-user-select: none;
+	-webkit-touch-callout: none;
+	-webkit-user-drag: none;
+	user-drag: none;
+	cursor: default;
+}
+
+html {
+	overflow: hidden;
+	background-color: #000000;
+}
+
+body {
+	margin: 0px;
+	/*width: 1280px;
+	height: 720px;*/
+}
+
+.background {
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	background: url(images/loadingnewsscreenbg/3.jpg) center no-repeat;
+	background-size: contain;
+	position: relative;
+}
+
+.newsblock {
+	width: 870px;
+	height: 430px;
+	background-color: rgba(0, 0, 0, 0.75);
+	position: absolute;
+	top: calc(50% - 430px/2);
+	right: 20px;
+}
+
+.newsblock-tilerows {
+	width: 870px;
+	height: 58px;
+	background: url(images/rockstartilebmp.png) center repeat-x;
+	background-size: 58px;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	opacity: 0.075;
+}
+
+.newsblock-tilerows:before {
+	content: "";
+	width: 870px;
+	height: 58px;
+	top: 54px;
+	background: url(images/rockstartilebmp.png) center repeat-x;
+	background-size: 58px;
+	position: absolute;
+	opacity: 0.5;
+}
+
+.newsblock-tilerows:after {
+	content: "";
+	width: 870px;
+	height: 58px;
+	top: 108px;
+	background: url(images/rockstartilebmp.png) center repeat-x;
+	background-size: 58px;
+	position: absolute;
+	opacity: 0.25;
+}
+
+.newsblock-banner {
+	width: 288px;
+	height: 430px;
+	background: url(images/rockstartilebmp.png) center no-repeat rgba(0, 0, 0, 0.15);
+	position: absolute;
+	top: 0px;
+	right: 0px;
+}
+
+.newsblock-banner.custom {
+	background-image: url(https://media.rockstargames.com/rockstargames-newsite/uploads/36173bb36b7cc02ff5a0e002243a6f75694f8d5b.jpg);
+	background-size: cover;
+}
+
+.newsblock-onlinetip {
+	color: #ffffff;
+	font-size: 16px;
+	font-family: ChaletLondonNineteenSixty;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	left: 24px;
+	bottom: 26px;
+	position: absolute;
+	max-width: 534px;
+}
+
+.gtalogo {
+	left: 20px;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	position: absolute;
+}
+
+.gtalogo.five {
+	bottom: -3px;
+	width: 186px;
+	height: 186px;
+	background-image: url(images/loadingscreen_gtav_logo.png);
+}
+
+.gtalogo.online {
+	bottom: 11px;
+	width: 180px;
+	height: 180px;
+	background-image: url(images/gtaotransitionlogo.png);
+}
+
+.loading-hint {
+	bottom: 11px;
+	right: 20px;
+	position: absolute;
+	background-color: rgba(0, 0, 0, 0.5);
+	border-radius: 2px;
+	color: #ffffff;
+	font-family: ChaletLondonNineteenSixty;
+	font-size: 12px;
+	padding: 5px 35px 5px 8px;
+	min-height: 15px;
+	min-width: 0px;
+}
+
+.spinner {
+	width: 18px;
+	height: 18px;
+	top: 3px;
+	right: 8px;
+	position: absolute;
+	background-image: url(images/game_stream_i78.png);
+	background-size: cover;
+	animation: spinner 2s infinite linear;
+}
+
+@keyframes spinner {
+	from {transform:rotate(360deg) scale(-1, 1);}
+	to {transform:rotate(0deg) scale(-1, 1);}
+}
