@@ -84,21 +84,48 @@ body {
 }
 
 .newsblock-banner.custom {
-	background-image: url(https://media.rockstargames.com/rockstargames-newsite/uploads/36173bb36b7cc02ff5a0e002243a6f75694f8d5b.jpg);
-	background-size: cover;
+	/*background-image: url(https://media.rockstargames.com/rockstargames-newsite/uploads/36173bb36b7cc02ff5a0e002243a6f75694f8d5b.jpg);*/
+	/*background-size: cover;*/
+	background-image: url(images/fivem.svg);
+	background-size: 50%;
+}
+
+.newsblock-content {
+	color: #f0f0f0;
+	font-size: 16px;
+	font-family: ChaletLondonNineteenSixty;
+	width: 546px/*541px*/;
+	height: 380px;
+	position: absolute;
+	top: 24px;
+	left: 20px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+.newsblock-title {
+	font-size: 48px;
+	line-height: 36px;
+}
+
+.newsblock-subtitle {
+	font-size: 24px;
+	line-height: 24px/*18px*/;
+	margin-top: 8px;
+}
+
+.newsblock-text {
+	font-size: 15px/*16px*/;
+	margin-top: 24px;
 }
 
 .newsblock-onlinetip {
-	color: #ffffff;
-	font-size: 16px;
-	font-family: ChaletLondonNineteenSixty;
-	white-space: nowrap;
-	text-overflow: ellipsis;
 	overflow: hidden;
-	left: 24px;
-	bottom: 26px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	bottom: 0px;
 	position: absolute;
-	max-width: 534px;
+	max-width: 100%;
 }
 
 .gtalogo {
@@ -129,7 +156,7 @@ body {
 	position: absolute;
 	background-color: rgba(0, 0, 0, 0.5);
 	border-radius: 2px;
-	color: #ffffff;
+	color: #f0f0f0;
 	font-family: ChaletLondonNineteenSixty;
 	font-size: 12px;
 	padding: 5px 35px 5px 8px;
