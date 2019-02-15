@@ -19,8 +19,6 @@ html {
 
 body {
 	margin: 0px;
-	/*width: 1280px;
-	height: 720px;*/
 }
 
 .background {
@@ -28,7 +26,6 @@ body {
 	left: 0px;
 	width: 100%;
 	height: 100%;
-	/*background-image: url(images/loadingnewsscreenbg/3.jpg);*/
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: contain;
@@ -86,18 +83,11 @@ body {
 	right: 0px;
 }
 
-.newsblock-banner.custom {
-	background-image: url(https://media.rockstargames.com/rockstargames-newsite/uploads/36173bb36b7cc02ff5a0e002243a6f75694f8d5b.jpg);
-	background-size: cover;
-	/*background-image: url(images/fivem.svg);*/
-	/*background-size: 50%;*/
-}
-
 .newsblock-content {
 	color: #f0f0f0;
 	font-size: 16px;
 	font-family: Chalet-LondonSixty;
-	width: 546px/*541px*/;
+	width: 546px;
 	height: 380px;
 	position: absolute;
 	top: 24px;
@@ -129,6 +119,7 @@ body {
 	bottom: 0px;
 	position: absolute;
 	max-width: 100%;
+	font-size: 14px;
 }
 
 .gtalogo {
