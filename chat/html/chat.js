@@ -1,7 +1,36 @@
 var chatBoxHideTime;
 var chatBoxInput = false;
-var isPauseMenuActive = false;
+var shouldBeHidden = false;
+var hasNewMessages = false;
+var isScrolling = false;
 const twemojiset = {folder:"svg", ext:".svg"};
+
+var inputHistory = {
+	messages:[],
+	max: 20,
+	add: function(s) {
+		if (!inputHistory.messages.includes(s)) {
+			inputHistory.messages.unshift(s);
+			if (inputHistory.messages.length > inputHistory.max) {
+				inputHistory.messages.pop();
+			}
+			inputHistory.count = inputHistory.messages.length - 1;
+		} else {
+			var i = inputHistory.messages.indexOf(s);
+			inputHistory.messages.splice(i, 1)
+			inputHistory.messages.unshift(s);
+			if (inputHistory.messages.length > inputHistory.max) {
+				inputHistory.messages.pop();
+			}
+			inputHistory.count = inputHistory.messages.length - 1;
+		}
+	},
+	get: function() {
+		return inputHistory.messages[inputHistory.current] || "";
+	},
+	count: 0,
+	current: -1
+};
 
 function formatMessage(message) {
 	const styleRegex = /\^(\_|\*|\=|\~|\/|r)(.*?)(?=$|\^r|<\/span>)/;
@@ -21,9 +50,12 @@ function formatMessage(message) {
 		.replace(/"/g, "&quot;")
 		.replace(/'/g, "&#039;");
 
-	message = message.replace(/\^([1-9bgypqocmwsu])/gi, "</span><span class=\"color-$1\">");
-	message = message.replace(/\^#([0-9A-F][0-9A-F])([0-9A-F][0-9A-F])([0-9A-F][0-9A-F])/gi, "</span><span style=\"color: #$1$2$3;\">");
-	message = message.replace(/\^0/g, "</span>");
+	// it seems awful and stupid
+	message = message
+		.replace(/\^([1-9bgypqocmwsu])/gi, "</span><span class=\"color-$1\">")
+		.replace(/\^#([0-9A-F][0-9A-F])([0-9A-F][0-9A-F])([0-9A-F][0-9A-F])/gi, "</span><span style=\"color: #$1$2$3;\">")
+		.replace(/\^#([0-9A-F])([0-9A-F])([0-9A-F])/gi, "</span><span style=\"color: #$1$2$3;\">")
+		.replace(/\^0/g, "</span>");
 
 	while (message.match(styleRegex)) {
 		message = message.replace(styleRegex, (str, style, inner) => `<span style="${styleDict[style]}">${inner}</span>`);
@@ -35,13 +67,13 @@ function formatMessage(message) {
 
 function showChatBox()
 {
-	if (!isPauseMenuActive)
+	if (!shouldBeHidden)
 	{
 		$("#chatBox").stop();
 		$("#chatBoxBg").stop();
 
 		$("#chatBox").animate({opacity: 1}, 500);
-		$("#chatBoxBg").animate({opacity: 0.9}, 500);
+		$("#chatBoxBg").animate({opacity: 1}, 500);
 	}
 }
 
@@ -59,13 +91,14 @@ function hideChatBox(time)
 
 function showChatBoxInput()
 {
-	if (!isPauseMenuActive)
+	if (!shouldBeHidden)
 	{
 		chatBoxInput = true;
 		$("#chatInputText").val("")
 		$("#chatInput").stop();
 		$("#chatInput").animate({opacity: 1}, 100);
 		$("#chatInputText").focus();
+		inputHistory.current = -1;
 	}
 }
 
@@ -109,47 +142,71 @@ function SendResult(message)
 
 function scrollChatBox(pos)
 {
-	var size = 24 * 2
-	var chat = $("#chatBoxBuffer");
-	if (pos == "up") {
-		size = chat.scrollTop() - size
-	} else if (pos == "down") {
-		size = chat.scrollTop() + size
+	if (!isScrolling) {
+		isScrolling = true;
+
+		var size = 24 * 2
+		var chat = $("#chatBoxBuffer");
+
+		if (pos == "up") {
+			size = chat.scrollTop() - size
+		} else if (pos == "down") {
+			size = chat.scrollTop() + size
+		}
+
+		chat.stop();
+		chat.animate({scrollTop: size}, 150, function(){isScrolling = false;});
 	}
-	chat.stop();
-	chat.animate({scrollTop: size}, 150);
 }
 
 function onKeyUp(event)
 {
 	var key = event.keyCode;
 	if (key == 13) {
-		SendResult($("#chatInputText").val())
+		var result = $("#chatInputText").val();
+		SendResult(result);
+		if (result.length > 0) inputHistory.add(result);
 	} else if (key == 27) {
-		SendResult()
+		SendResult();
 	}
 }
 
 function onKeyDown(event)
 {
+
 	var key = event.keyCode;
 	if (key == 9 || key == 13) {
-		event.preventDefault();
-		event.stopPropagation();
+		cancelJsEvent(event);
 		return false;
 	} else if (key == 33) {
-		scrollChatBox("up")
+		scrollChatBox("up");
 	} else if (key == 34) {
-		scrollChatBox("down")
+		scrollChatBox("down");
+	} else if (key == 38) {
+		cancelJsEvent(event);
+		if (inputHistory.current < inputHistory.count) {
+			inputHistory.current++
+			$("#chatInputText").val(inputHistory.get());
+		}
+	} else if (key == 40) {
+		cancelJsEvent(event);
+		if (inputHistory.current > -1) {
+			--inputHistory.current
+			$("#chatInputText").val(inputHistory.get());
+		}
 	}
 }
 
-document.querySelector("body").onkeydown = function(e) {
-	if (e.keyCode)
-	{
-		onKeyDown(event)
-	}
-};
+function cancelJsEvent(event)
+{
+	event.preventDefault();
+	event.stopPropagation();
+}
+
+document.querySelector("body").onkeyup = function(e) {if (e.keyCode) onKeyUp(e);};
+document.querySelector("body").onkeydown = function(e) {if (e.keyCode) onKeyDown(e);};
+document.querySelector("body").onmouseup = function(e) {cancelJsEvent(e);};
+document.querySelector("body").onmousedown = function(e) {cancelJsEvent(e);};
 
 window.addEventListener("message", function(event) {
 	var item = event.data;
@@ -158,27 +215,32 @@ window.addEventListener("message", function(event) {
 	if (meta)
 	{
 		if (meta == "openChatBox") {
-			showChatBox()
-			showChatBoxInput()
+			showChatBox();
+			showChatBoxInput();
 		} else if (meta == "closeChatBox") {
-			hideChatBox()
-			hideChatBoxInput()
+			hideChatBox();
+			hideChatBoxInput();
 		} else if (meta == "outputChatBox") {
-			showChatBox()
-			hideChatBox()
-			outputChatBox(item.name, item.message)
-		} else if (meta == "pauseMenuActive") {
+			showChatBox();
+			hideChatBox();
+			outputChatBox(item.name, item.message);
+			if (shouldBeHidden) hasNewMessages = true;
+		} else if (meta == "shouldBeHidden") {
 			$("#chatBox").css("opacity", 0);
 			$("#chatBoxBg").css("opacity", 0);
 			$("#chatInput").css("opacity", 0);
 			$("#chatInputText").blur();
 			$("#chatInputText").val("")
+			if (chatBoxInput) SendResult();
 			chatBoxInput = false;
-			isPauseMenuActive = true;
-		} else if (meta == "pauseMenuNotActive") {
-			isPauseMenuActive = false;
-			showChatBox()
-			hideChatBox(250)
+			shouldBeHidden = true;
+		} else if (meta == "shouldNotBeHidden") {
+			shouldBeHidden = false;
+			if (hasNewMessages) {
+				showChatBox();
+				hideChatBox();
+				hasNewMessages = false;
+			}
 		}
 	}
 }, false);

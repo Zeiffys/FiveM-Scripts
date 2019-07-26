@@ -1,11 +1,10 @@
-local isPauseMenuActive = false
+local shouldBeHidden = false
 local chatInputActive = false
-local chatInputActivating = false
 local chatAllowedCommands = {}
 local registeredCommands = {}
 
-RegisterNetEvent("chat:sendMessage")
-AddEventHandler("chat:sendMessage", function(name, message)
+RegisterNetEvent("chat:addMessage")
+AddEventHandler("chat:addMessage", function(name, message)
 	SendNUIMessage({
 		meta = "outputChatBox",
 		name = emojit(tostring(name)),
@@ -34,7 +33,7 @@ RegisterNUICallback("chatResult", function(data, cb)
 							return
 						end
 					end
-					TriggerEvent("chat:sendMessage", "", " ^1*^0Command \""..command.."\" not found")
+					TriggerEvent("chat:addMessage", "^1Error^0", "Command '"..command.."' not found")
 				end
 			else
 				TriggerServerEvent("chat:messageEntered", author, message)
@@ -65,26 +64,31 @@ end)
 Citizen.CreateThread(function()
 	SetNuiFocus(false)
 	SetTextChatEnabled(false)
+	DecorRegister("chat:isTyping", 2)
+
 	while true do
 		Citizen.Wait(0)
-		if not chatInputActive then
-			if IsControlJustReleased(2, 245) then
-				chatInputActive = true
-				SetNuiFocus(true)
-				SendNUIMessage({meta = "openChatBox"})
+
+		if IsPauseMenuActive() or IsScreenFadedOut() then
+			if not shouldBeHidden then
+				SendNUIMessage({meta = "shouldBeHidden"})
+				shouldBeHidden = true
+			end
+		else
+			if shouldBeHidden then
+				SendNUIMessage({meta = "shouldNotBeHidden"})
+				shouldBeHidden = false
+			else
+				if not chatInputActive then
+					if IsControlJustReleased(0, 245) then
+						chatInputActive = true
+						SetNuiFocus(true)
+						SendNUIMessage({meta = "openChatBox"})
+					end
+				end
 			end
 		end
 
-		if IsPauseMenuActive() then
-			if not isPauseMenuActive then
-				SendNUIMessage({meta = "pauseMenuActive"})
-				isPauseMenuActive = true
-			end
-		else
-			if isPauseMenuActive then
-				SendNUIMessage({meta = "pauseMenuNotActive"})
-				isPauseMenuActive = false
-			end
-		end
+		DecorSetBool(PlayerPedId(), "chat:isTyping", chatInputActive)
 	end
 end)

@@ -10,7 +10,7 @@ local acetags = {
 }
 
 AddEventHandler("chat:commandEntered", function(author, rawCommand)
-	print(("CHAT: %s executed the command '%s'"):format(author, rawCommand))
+	print(("[CHAT] %s executed the command '%s'"):format(author, rawCommand))
 end)
 
 AddEventHandler("chat:messageEntered", function(author, message)
@@ -26,27 +26,36 @@ AddEventHandler("chat:messageEntered", function(author, message)
 			end
 		end
 
-		TriggerClientEvent("chat:sendMessage", -1, acetag..author, message)
-		print(("CHAT: %s:%s"):format(escape(author), escape(message)))
+		TriggerClientEvent("chat:addMessage", -1, acetag..author, message)
+		print(("[CHAT] %s: %s"):format(escape(author), escape(message)))
 	end
 end)
 
 AddEventHandler("playerActivated", function()
-	TriggerClientEvent("chat:sendMessage", -1, "", " ^1*"..GetPlayerName(source).." ^0joined")
+	local name = GetPlayerName(source)
+
+	if name then
+		TriggerClientEvent("chat:addMessage", -1, "", (" * %s joined"):format(name))
+	end
 end)
 
 AddEventHandler("playerDropped", function(reason)
-	if GetPlayerName(source) then
+	local name = GetPlayerName(source)
+
+	if name then
 		if reason:find("Exiting") or reason:find("Disconnect") then
 			reason = "left"
 		elseif reason:find("Timed out") then
 			reason = "timed out"
 		elseif reason:find("Reconnecting") then
 			reason = "reconnecting"
+		elseif reason:find("Could not connect to session provider.") then
+			reason = "can't connect to session."
 		else
 			reason = "kicked ("..reason..")"
 		end
-		TriggerClientEvent("chat:sendMessage", -1, "", " ^1*"..GetPlayerName(source).." ^0"..reason)
+
+		TriggerClientEvent("chat:addMessage", -1, "", (" * %s %s"):format(name, reason))
 	end
 end)
 
@@ -91,24 +100,26 @@ RegisterCommand("me", function(source, args, raw)
 		local action = escape(raw:sub(3, #raw))
 
 		if #action:gsub(" ", "") > 0 then
-			TriggerClientEvent("chat:sendMessage", -1, "", " ^6*^/"..name..action)
+			TriggerClientEvent("chat:addMessage", -1, "", " ^6*^/"..name..action)
 		else
-			TriggerClientEvent("chat:sendMessage", _source, " ^1*Usage^0", "/me [your action from the third person]")
+			TriggerClientEvent("chat:addMessage", _source, " ^1Usage^0", "/me <your action from the third person>")
 		end
 	end
 end, false)
 
 RegisterCommand("say", function(source, args)
-	if source == 0 then
-		local message = table.concat(args, " ")
+	local _source = source
+	local isConsole = (_source == 0)
+	local message = table.concat(args, " ")
 
-		if #message:gsub(" ", "") > 0 then
-			TriggerEvent("chat:messageEntered", "^1Console^0", message)
-		else
+	if #message:gsub(" ", "") > 0 then
+		TriggerEvent("chat:messageEntered", (isConsole and "^5Console^0" or GetPlayerName(_source)), message)
+	else
+		if isConsole then
 			print("Argument count mismatch (passed 0, wanted 1)")
 		end
 	end
-end, true)
+end, false)
 
 RegisterCommand("pm", function(source, args, rawCommand)
 	if source ~= 0 then
@@ -125,16 +136,16 @@ RegisterCommand("pm", function(source, args, rawCommand)
 					}
 
 					for k, v in pairs(coolthing) do
-						TriggerClientEvent("chat:sendMessage", v[1], v[2], message)
+						TriggerClientEvent("chat:addMessage", v[1], v[2], message)
 					end
 				elseif sender == player then
-					TriggerClientEvent("chat:sendMessage", sender, ":e_mail:", "Our services are currently unavailable. Please callback later. :hammer::monkey:")
+					TriggerClientEvent("chat:addMessage", sender, ":e_mail:", "Our services are currently unavailable. Please callback later. :hammer::monkey:")
 				end
 			else
-				TriggerClientEvent("chat:sendMessage", sender, ":e_mail:", "Player not found")
+				TriggerClientEvent("chat:addMessage", sender, ":e_mail:", "Player not found")
 			end
 		else
-			TriggerClientEvent("chat:sendMessage", source, " ^1*Usage^0", "/pm [playerid] [message]")
+			TriggerClientEvent("chat:addMessage", source, " ^1Usage^0", "/pm <playerid> <message>")
 		end
 	end
 end, false)
