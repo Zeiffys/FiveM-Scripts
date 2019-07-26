@@ -467,6 +467,16 @@ local scriptedipl = {
 	"xs_arena_interior_mod_2", -- 170, 5190, 10
 	"xs_arena_interior_vip", -- 2799.529, -3930.539, 182.2356
 
+	-- The Diamond Casino & Resort
+	--[[
+	"vw_casino_billboard",
+	"vw_casino_carpark",
+	"vw_casino_garage",
+	"vw_casino_main",
+	"vw_casino_penthouse",
+	"vw_dlc_casino_door"
+	]]
+
 	-- La-Mesa Autoshop Doors: 975.190, -1828.765, 31.184
 	"bkr_bi_id1_23_door",
 
