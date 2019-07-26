@@ -462,10 +462,10 @@ local scriptedipl = {
 	-- Arena War 
 	"xs_arena_banners_ipl", -- Adds banners to the Maze Bank Arena: -265.247, -1898.195, 27.755
 	-- interiors/arena (not loaded by default by game)
-	"xs_arena_interior",
-	"xs_arena_interior_mod",
-	"xs_arena_interior_mod_2",
-	"xs_arena_interior_vip",
+	"xs_arena_interior", -- 2800, -3800, 100
+	"xs_arena_interior_mod", -- 205, 5180, -90
+	"xs_arena_interior_mod_2", -- 170, 5190, 10
+	"xs_arena_interior_vip", -- 2799.529, -3930.539, 182.2356
 
 	-- La-Mesa Autoshop Doors: 975.190, -1828.765, 31.184
 	"bkr_bi_id1_23_door",
@@ -474,7 +474,7 @@ local scriptedipl = {
 	"bkr_bi_hw1_13_int",
 
 	-- Grand Senora Desert Hatches Terrain: 2052.478, 2949.142, 47.682
-	-- "xm_hatch_closed"
+	-- "xm_hatch_closed",
 	-- "xm_hatches_terrain",
 	-- "xm_bunkerentrance_door",
 	-- "xm_siloentranceclosed_x17",
@@ -1382,17 +1382,171 @@ local scriptedint = {
 			-- "apart_hi_strip_c"
 		}
 	},
-
 	{
-		coord = {vector3(975.0, -3000.0, -40.0)},
+		-- x18dlc_int_01 - mpchristmas2018
+		coord = {vector3(2800, -3800, 100)},
 		props = {
-			"basic_style_set",
-			-- "branded_style_set",
-			-- "urban_style_set",
-			-- "car_floor_hatch",
-			-- "door_blocker"
+			"set_animation_seats",
+			-- "set_centreline_dystopian_05",
+			-- "set_centreline_scifi_05",
+			-- "set_centreline_wasteland_05",
+			"set_crowd_a",
+			"set_crowd_b",
+			"set_crowd_c",
+			"set_crowd_d",
+			-- "set_dystopian_01",
+			-- "set_dystopian_02",
+			-- "set_dystopian_03",
+			-- "set_dystopian_04",
+			-- "set_dystopian_05",
+			-- "set_dystopian_06",
+			-- "set_dystopian_07",
+			-- "set_dystopian_08",
+			-- "set_dystopian_09",
+			-- "set_dystopian_10",
+			-- "set_dystopian_12",
+			-- "set_dystopian_17",
+			-- "set_dystopian_scene",
+			-- "set_lights_atlantis",
+			"set_lights_evening",
+			-- "set_lights_hell",
+			"set_lights_midday",
+			"set_lights_morning",
+			"set_lights_night",
+			-- "set_lights_saccharine",
+			-- "set_lights_sandstorm",
+			-- "set_lights_sfnight",
+			-- "set_lights_storm",
+			-- "set_lights_toxic",
+			-- "set_pit_fence_closed",
+			-- "set_pit_fence_demolition",
+			"set_pit_fence_oval",
+			-- "set_pit_fence_ovala",
+			-- "set_pit_fence_ovalb",
+			"set_pit_fence_wall",
+			"set_pit_high",
+			-- "set_pit_low",
+			-- "set_pit_mid",
+			-- "set_scifi_01",
+			"set_scifi_02",
+			-- "set_scifi_03",
+			-- "set_scifi_04",
+			-- "set_scifi_05",
+			-- "set_scifi_06",
+			-- "set_scifi_07",
+			-- "set_scifi_08",
+			-- "set_scifi_09",
+			-- "set_scifi_10",
+			"set_scifi_scene",
+			-- "set_team_band_a",
+			-- "set_team_band_b",
+			-- "set_team_band_c",
+			-- "set_team_band_d",
+			-- "set_turrets",
+			"set_turrets_scifi",
+			-- "set_turrets_wasteland",
+			-- "set_wall_no_pit",
+			-- "set_wasteland_01",
+			-- "set_wasteland_02",
+			-- "set_wasteland_03",
+			-- "set_wasteland_04",
+			-- "set_wasteland_05",
+			-- "set_wasteland_06",
+			-- "set_wasteland_07",
+			-- "set_wasteland_08",
+			-- "set_wasteland_09",
+			-- "set_wasteland_10",
+			-- "set_wasteland_scene"
+		},
+		color = {
+			{"set_team_band_a", 0},
+			{"set_team_band_b", 0},
+			{"set_team_band_c", 0},
+			{"set_team_band_d", 0}
 		}
-		
+	},
+	{
+		-- x18dlc_int_mod - mpchristmas2018
+		coord = {vector3(205, 5180, -90)},
+		props = {
+			"set_arena_no peds",
+			-- "set_arena_peds",
+			"set_bandito_rc",
+			-- "set_bench_clutter",
+			"set_int_mod_bedroom_blocker",
+			-- "set_int_mod_booth_ben",
+			"set_int_mod_booth_combo",
+			-- "set_int_mod_booth_def",
+			-- "set_int_mod_booth_wp",
+			-- "set_int_mod_construction_01",
+			-- "set_int_mod_construction_02",
+			-- "set_int_mod_construction_03",
+			"set_int_mod_shell_def",
+			"set_int_mod_trophy_bandito",
+			"set_int_mod_trophy_bobby",
+			"set_int_mod_trophy_career",
+			"set_int_mod_trophy_contact",
+			"set_int_mod_trophy_crowd",
+			"set_int_mod_trophy_duck",
+			"set_int_mod_trophy_got_one",
+			"set_int_mod_trophy_killed",
+			"set_int_mod_trophy_lens",
+			"set_int_mod_trophy_outta_here",
+			"set_int_mod_trophy_pegasus",
+			"set_int_mod_trophy_score",
+			"set_int_mod_trophy_shunt",
+			"set_int_mod_trophy_spinner",
+			"set_int_mod_trophy_step",
+			"set_int_mod_trophy_time_served",
+			"set_int_mod_trophy_tower",
+			"set_int_mod_trophy_unstoppable",
+			"set_int_mod_trophy_wageworker",
+			"set_int_mod_trophy_war",
+			-- "set_mod1_style_01",
+			-- "set_mod1_style_02",
+			-- "set_mod1_style_03",
+			-- "set_mod1_style_04",
+			-- "set_mod1_style_05",
+			-- "set_mod1_style_06",
+			-- "set_mod1_style_07",
+			-- "set_mod1_style_08",
+			-- "set_mod1_style_09",
+			-- "set_office_hitech",
+			-- "set_office_industrial",
+			"set_office_standard",
+			"set_office_trinket_01",
+			"set_office_trinket_02",
+			"set_office_trinket_03",
+			"set_office_trinket_04",
+			"set_office_trinket_06",
+			"set_office_trinket_07",
+			-- "set_xmas_decorations"
+		}
+	},
+	{
+		-- x18dlc_int_mod 2 - mpchristmas2018
+		coord = {vector3(170, 5190, 10)},
+		props = {
+			"set_int_mod2_b1",
+			-- "set_int_mod2_b2",
+			-- "set_mod2_style_01",
+			-- "set_mod2_style_02",
+			-- "set_mod2_style_03",
+			-- "set_mod2_style_04",
+			-- "set_mod2_style_05",
+			-- "set_mod2_style_06",
+			-- "set_mod2_style_07",
+			-- "set_mod2_style_08",
+			-- "set_mod2_style_09",
+			"set_int_mod2_b_tint"
+		}
+	},
+	{
+		-- x18dlc_int_vip - mpchristmas2018
+		coord = {vector3(2799.529, -3930.539, 182.2356)},
+		props = {
+			-- "vip_xmas_decs"
+		}
 	}
 }
 
@@ -1407,7 +1561,7 @@ Citizen.CreateThread(function()
 			RequestIpl(v)
 			Citizen.Wait(0)
 			if IsIplActive(v) then
-				Citizen.Trace(" *scripted-ipl: "..v.." loaded.\n")
+				-- Citizen.Trace(" *scripted-ipl: "..v.." loaded.\n")
 			else
 				Citizen.Trace(" *scripted-ipl: "..v.." error while loading.\n")
 			end
@@ -1426,7 +1580,7 @@ Citizen.CreateThread(function()
 						else
 							EnableInteriorProp(int, v)
 							if IsInteriorPropEnabled(int, v) then
-								Citizen.Trace(" *scripted-int: "..v.." enabled for "..int..".\n")
+								-- Citizen.Trace(" *scripted-int: "..v.." enabled for "..int..".\n")
 							else
 								Citizen.Trace(" *scripted-int: error while enable "..v.." for "..int..".\n")
 							end
@@ -1459,7 +1613,7 @@ AddEventHandler("onResourceStop", function(resource)
 				if IsIplActive(v) then
 					Citizen.Trace(" *scripted-ipl: "..v.." error while unloading.\n")
 				else
-					Citizen.Trace(" *scripted-ipl: "..v.." unloaded.\n")
+					-- Citizen.Trace(" *scripted-ipl: "..v.." unloaded.\n")
 				end
 			else
 				-- Citizen.Trace(" *scripted-ipl: "..v.." already unloaded.\n")
@@ -1486,7 +1640,7 @@ AddEventHandler("onResourceStop", function(resource)
 								if IsInteriorPropEnabled(int, v) then
 									Citizen.Trace(" *scripted-int: error while disable "..v.." for "..int..".\n")
 								else
-									Citizen.Trace(" *scripted-int: "..v.." disabled for "..int..".\n")
+									-- Citizen.Trace(" *scripted-int: "..v.." disabled for "..int..".\n")
 								end
 							else
 								-- Citizen.Trace(" *scripted-int: "..v.." already disabled for "..int..".\n")
