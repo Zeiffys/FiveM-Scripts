@@ -349,6 +349,9 @@ local scriptedipl = {
 	-- "prologue03_grv_fun"
 	]]--
 
+	-- Scene from Director Mode: 0, 0, 500
+	-- "replay",
+
 
 
 	-- DLC's PART --
@@ -465,17 +468,15 @@ local scriptedipl = {
 	"xs_arena_interior", -- 2800, -3800, 100
 	"xs_arena_interior_mod", -- 205, 5180, -90
 	"xs_arena_interior_mod_2", -- 170, 5190, 10
-	"xs_arena_interior_vip", -- 2799.529, -3930.539, 182.2356
+	"xs_arena_interior_vip", -- 2799.529, -3930.539, 182.235
 
-	-- The Diamond Casino & Resort
-	--[[
-	"vw_casino_billboard",
-	"vw_casino_carpark",
-	"vw_casino_garage",
-	"vw_casino_main",
-	"vw_casino_penthouse",
-	"vw_dlc_casino_door"
-	]]
+	-- The Diamond Casino & Resort / Needs testing on the latest version of the game.
+	-- "vw_casino_billboard", -- 1357.379, 674.478, 95.175 / 1140.457, -277.042, 82.614 / 501.451, -7.713, 102.423 / -119.029, 281.240, 108.404 / 1075.050, -1004.402, 54.279
+	-- "vw_casino_carpark", -- 1380, 200, -50
+	-- "vw_casino_garage", -- 1295, 230, -50
+	-- "vw_casino_main", -- 1100, 220, -50
+	-- "vw_casino_penthouse", -- 976.636, 70.294, 115.164
+	-- "vw_dlc_casino_door", -- 927.738, 49.603, 81.541
 
 	-- La-Mesa Autoshop Doors: 975.190, -1828.765, 31.184
 	"bkr_bi_id1_23_door",
@@ -1556,6 +1557,59 @@ local scriptedint = {
 		coord = {vector3(2799.529, -3930.539, 182.2356)},
 		props = {
 			-- "vip_xmas_decs"
+		}
+	},
+	{
+		-- vwdlc_int_01 - mpvinewood
+		coord = {vector3(1100, 220, -50)},
+		props = {
+			"casino_manager_default",
+			-- "casino_manager_workout"
+		}
+	},
+	{
+		-- vwdlc_int_02 - mpvinewood
+		coord = {vector3(976.6364, 70.29476, 115.1641)},
+		props = {
+			-- "set_pent_arcade_modern",
+			"set_pent_arcade_retro",
+			-- "set_pent_bar_blocker",
+			-- "set_pent_bar_clutter",
+			"set_pent_bar_light_0",
+			-- "set_pent_bar_light_01",
+			-- "set_pent_bar_light_02",
+			-- "set_pent_bar_party_0",
+			-- "set_pent_bar_party_1",
+			"set_pent_bar_party_2",
+			-- "set_pent_bar_party_after",
+			-- "set_pent_cine_blocker",
+			-- "set_pent_clutter_01",
+			-- "set_pent_clutter_02",
+			-- "set_pent_clutter_03",
+			-- "set_pent_dealer",
+			-- "set_pent_guest_blocker",
+			-- "set_pent_lounge_blocker",
+			-- "set_pent_media_bar_closed",
+			"set_pent_media_bar_open",
+			-- "set_pent_nodealer",
+			-- "set_pent_office_blocker",
+			-- "set_pent_pattern_01",
+			-- "set_pent_pattern_02",
+			-- "set_pent_pattern_03",
+			-- "set_pent_pattern_04",
+			-- "set_pent_pattern_05",
+			-- "set_pent_pattern_06",
+			-- "set_pent_pattern_07",
+			-- "set_pent_pattern_08",
+			-- "set_pent_pattern_09",
+			-- "set_pent_spa_bar_closed",
+			"set_pent_spa_bar_open",
+			-- "set_pent_spa_blocker",
+			"set_pent_tint_shell",
+		},
+		color = {
+			{"set_pent_tint_shell", 3},
+			{"set_pent_pattern_01", 3}
 		}
 	}
 }
